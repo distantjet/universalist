@@ -1,0 +1,24 @@
+@tailwind utilities;
+
+/* Import block-specific styles */
+@import "./universalist-text/style.css";
+@import "./universalist-title/style.css";
+@import "./universalist-page-title/style.css";
+
+/* The container (UL) */
+.universalist-list-en, 
+.universalist-list-es {
+    list-style-type: disc !important;
+    padding-left: 2rem !important;
+    display: block !important; 
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+/* The items (LI) */
+.universalist-list-en li, 
+.universalist-list-es li {
+    display: list-item !important;
+    margin-bottom: 0.25rem;
+    margin-top: 1rem;
+}

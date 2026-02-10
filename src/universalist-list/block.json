@@ -1,0 +1,16 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
+    "name": "distantjet/universalist-list",
+    "version": "0.1.0",
+    "title": "Universalist List",
+    "category": "widgets",
+    "attributes": {
+        "items_en": { "type": "array", "default": [] },
+        "items_es": { "type": "array", "default": [] }
+    },
+    "editorScript": "file:./index.js",
+    "editorStyle": "file:./editor.css",
+    "style": "file:../../build/style.css",
+    "render": "file:./render.php"
+}
