@@ -1,0 +1,12 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "distantjet/universalist-page-title",
+  "title": "Universalist Page Title",
+  "category": "widgets",
+  "icon": "heading",
+  "description": "Bilingual page title block.",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./editor.css",
+  "style": "file:./style.css"
+}

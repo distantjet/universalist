@@ -1,0 +1,43 @@
+=== Universalist ===
+Contributors:      matiasescudero
+Tags:              translate, english, spanish, espanol, block
+Tested up to:      6.9
+Stable tag:        0.1.0
+Requires           PHP: 7.4.33
+License:           GPL-2.0-or-later
+License URI:       https://www.gnu.org/licenses/gpl-2.0.html
+
+Create content for English and Spanish.
+
+== Description ==
+
+Universalist lets you write page titles, headings, text, and lists in English and Spanish—side by side—and automatically shows visitors the version that matches their browser language. Stay tuned—more languages are on the way!
+
+== Frequently Asked Questions ==
+
+= Is there an example of how to programmatically select a language? =
+
+Yes. You can pass a language code through the URL using a query parameter.  
+For example, the following links set the `dj_universalist_lang` parameter to a specific language:
+
+```javascript
+<a href="#" onclick="document.cookie='dj_universalist_lang_cookie=en;path=/;max-age=2592000';location.reload();return false;">English</a>
+<a href="#" onclick="document.cookie='dj_universalist_lang_cookie=es;path=/;max-age=2592000';location.reload();return false;">Español</a>
+```
+
+== Screenshots ==
+
+1. Page title translation.
+2. Title translation.
+3. Text translation.
+4. List translation.
+
+== Changelog ==
+
+= 0.1.0 =
+* Release
+
+== Source Code ==
+
+You can find the full source on GitHub:  
+https://github.com/distantjet/universalist
