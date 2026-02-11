@@ -11,7 +11,7 @@ Create content for English and Spanish.
 
 == Description ==
 
-Universalist lets you write page titles, headings, text, and lists in English and Spanish—side by side—and automatically shows visitors the version that matches their browser language.
+Universalist lets you write page titles, headings, text, and lists in English and Spanish—side by side—and automatically shows visitors the version that matches their browser language. Stay tuned—more languages are on the way!
 
 == Frequently Asked Questions ==
 
@@ -19,8 +19,7 @@ Universalist lets you write page titles, headings, text, and lists in English an
 
 Yes. You can pass a language code through the URL using a query parameter.  
 For example, the following links set the `dj_universalist_lang` parameter to a specific language:
-
-```javascript
+```html
 <a href="#" onclick="document.cookie='dj_universalist_lang_cookie=en;path=/;max-age=2592000';location.reload();return false;">English</a>
 <a href="#" onclick="document.cookie='dj_universalist_lang_cookie=es;path=/;max-age=2592000';location.reload();return false;">Español</a>
 ```
