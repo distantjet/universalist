@@ -5,7 +5,7 @@
 	"version": "0.1.0",
 	"title": "Universalist Text",
 	"category": "widgets",
-	"icon": "media-interactive",
+	"icon": "dashicons-media-text",
 	"description": "Create text for multiple languages",
 	"attributes": {
 		"text_en": {

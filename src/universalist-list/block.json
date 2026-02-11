@@ -5,6 +5,7 @@
     "version": "0.1.0",
     "title": "Universalist List",
     "category": "widgets",
+    "icon": "dashicons-editor-ul",
     "attributes": {
         "items_en": { "type": "array", "default": [] },
         "items_es": { "type": "array", "default": [] }

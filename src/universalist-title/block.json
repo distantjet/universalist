@@ -5,7 +5,7 @@
     "version": "1.0.0",
     "title": "Universalist Title",
     "category": "widgets",
-    "icon": "translation",
+    "icon": "dashicons-heading",
     "description": "Create titles for multiple languages with Type safety",
     "attributes": {
         "title_en": { "type": "string", "default": "" },

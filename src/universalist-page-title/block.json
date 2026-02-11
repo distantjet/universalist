@@ -4,7 +4,7 @@
   "name": "distantjet/universalist-page-title",
   "title": "Universalist Page Title",
   "category": "widgets",
-  "icon": "heading",
+  "icon": "dashicons-admin-site",
   "description": "Bilingual page title block.",
   "editorScript": "file:./index.tsx",
   "editorStyle": "file:./editor.css",
