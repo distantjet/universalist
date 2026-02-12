@@ -3,9 +3,9 @@
   "apiVersion": 3,
   "name": "distantjet/universalist-page-title",
   "title": "Universalist Page Title",
+  "description": "Bilingual page title",
   "category": "widgets",
   "icon": "dashicons-admin-site",
-  "description": "Bilingual page title block.",
   "editorScript": "file:./index.tsx",
   "editorStyle": "file:./editor.css",
   "style": "file:./style.css"

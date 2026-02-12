@@ -4,6 +4,7 @@
     "name": "distantjet/universalist-list",
     "version": "0.1.0",
     "title": "Universalist List",
+    "description": "Bilingual list",
     "category": "widgets",
     "icon": "dashicons-editor-ul",
     "attributes": {

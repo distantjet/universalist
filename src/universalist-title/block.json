@@ -3,10 +3,10 @@
     "apiVersion": 3,
     "name": "distantjet/universalist-title",
     "version": "1.0.0",
-    "title": "Universalist Title",
+    "title": "Universalist Heading",
+    "description": "Bilingual heading",
     "category": "widgets",
     "icon": "dashicons-heading",
-    "description": "Create titles for multiple languages with Type safety",
     "attributes": {
         "title_en": { "type": "string", "default": "" },
         "title_es": { "type": "string", "default": "" },

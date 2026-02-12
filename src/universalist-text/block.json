@@ -4,9 +4,9 @@
 	"name": "distantjet/universalist-text",
 	"version": "0.1.0",
 	"title": "Universalist Text",
+	"description": "Bilingual text",
 	"category": "widgets",
 	"icon": "dashicons-media-text",
-	"description": "Create text for multiple languages",
 	"attributes": {
 		"text_en": {
 			"type": "string",
