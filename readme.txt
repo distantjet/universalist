@@ -2,7 +2,7 @@
 Contributors:      matiasescudero
 Tags:              translate, english, spanish, espanol, block
 Tested up to:      6.9
-Stable tag:        0.1.0
+Stable tag:        0.1.2
 Requires           PHP: 7.4.33
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -35,6 +35,12 @@ For example, the following links set the `dj_universalist_lang` parameter to a s
 
 = 0.1.0 =
 * Release
+
+= 0.1.1 =
+* Language detection bug fixed
+
+= 0.1.2 =
+* Title translation bug fixed
 
 == Source Code ==
 

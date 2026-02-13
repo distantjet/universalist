@@ -3,7 +3,7 @@
  * Plugin Name:       Universalist
  * Plugin URI:        https://distantjet.com/universalist
  * Description:       Create content for multiple languages
- * Version:           0.1.0
+ * Version:           0.1.2
  * Requires at least: 6.7
  * Requires PHP:      7.4
  * Author:            Matias Escudero
@@ -41,14 +41,14 @@ function distantjet_universalist_determine_locale($locale) {
     // This is safe because cookies are sent by the browser, not the cache.
     if (isset($_COOKIE['dj_universalist_lang_cookie'])) {
         $lang = sanitize_text_field(wp_unslash($_COOKIE['dj_universalist_lang_cookie']));
-        return ($lang === 'en') ? 'en_US' : 'es_AR';
+        return ($lang === 'es') ? 'es_AR' : 'en_US';
     }
 
     // 2. Fallback to Browser Language
     if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
         $accept_lang = sanitize_text_field(wp_unslash($_SERVER['HTTP_ACCEPT_LANGUAGE']));
         $browser_lang = substr($accept_lang, 0, 2);
-        return ($browser_lang === 'en') ? 'en_US' : 'es_AR';
+        return ($browser_lang === 'es') ? 'es_AR' : 'en_US';
     }
 
     return $locale;
@@ -63,7 +63,7 @@ function distantjet_universalist_detect_lang() {
     if ( isset( $_COOKIE['dj_universalist_lang_cookie'] ) ) {
 
         $cookie_lang = sanitize_text_field( wp_unslash( $_COOKIE['dj_universalist_lang_cookie'] ) );
-        return 'en' === $cookie_lang ? 'en' : 'es';
+        return 'es' === $cookie_lang ? 'es' : 'en';
     }
 
     // 2. Check Browser Language
@@ -71,7 +71,7 @@ function distantjet_universalist_detect_lang() {
 
         $accept_language = sanitize_text_field( wp_unslash( $_SERVER['HTTP_ACCEPT_LANGUAGE'] ) );
         $dj_universalist_lang = substr( $accept_language, 0, 2 );
-        return 'en' === $dj_universalist_lang ? 'en' : 'es';
+        return 'es' === $dj_universalist_lang ? 'es' : 'en';
     }
 
     return 'en';
@@ -103,12 +103,12 @@ function distantjet_universalist_get_translated_title( $post_id ) {
     $en = get_post_meta( $post_id, 'dj_universalist_page_title_en', true );
     $es = get_post_meta( $post_id, 'dj_universalist_page_title_es', true );
 
-    if ( 'en' === $lang && ! empty( $en ) ) {
-        return $en;
+    if ( 'es' === $lang && ! empty( $es ) ) {
+        return $es;
     }
     
-    if ( ! empty( $es ) ) {
-        return $es;
+    if ( ! empty( $en ) ) {
+        return $en;
     }
 
     return ''; // Return empty so the filter knows to use the default
@@ -116,11 +116,14 @@ function distantjet_universalist_get_translated_title( $post_id ) {
 
 // 1. Translate the on-page title
 add_filter( 'the_title', function ( $title, $post_id ) {
-    if ( is_admin() || ! is_singular() ) {
+    // Keep the admin check to avoid breaking the backend list of posts
+    if ( is_admin() ) {
         return $title;
     }
 
+    // Remove ! is_singular() to allow translations on the front page/archives
     $translated = distantjet_universalist_get_translated_title( $post_id );
+    
     return $translated ? $translated : $title;
 }, 10, 2 );
 
