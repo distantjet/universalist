@@ -17,12 +17,13 @@ Universalist lets you write page titles, headings, text, and lists in English an
 
 = Is there an example of how to programmatically select a language? =
 
-Yes. You can pass a language code through the URL using a query parameter.  
-For example, the following links set the `dj_universalist_lang` parameter to a specific language:
+Yes. You can programmatically select a language by setting the plugin’s language cookie.  
+For example, the following links set the `dj_universalist_lang_cookie` to a specific language and reload the page so the change takes effect:
 ```html
 <a href="#" onclick="document.cookie='dj_universalist_lang_cookie=en;path=/;max-age=2592000';location.reload();return false;">English</a>
 <a href="#" onclick="document.cookie='dj_universalist_lang_cookie=es;path=/;max-age=2592000';location.reload();return false;">Español</a>
 ```
+The cookie persists for 30 days (`max-age=2592000`), so the user’s language choice is remembered across visits.
 
 == Screenshots ==
 
