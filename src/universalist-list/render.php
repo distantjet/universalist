@@ -27,10 +27,18 @@ $items = $lang === 'es'
 
 
 if (!empty($items)) {
-    echo '<ul class="universalist-list">';
+    echo '<ul class="universalist-list-'.$lang.'">';
     foreach ($items as $item) {
         echo '<li>' . esc_html($item) . '</li>';
     }
     echo '</ul>';
 }
+
+// if (!empty($items)) {
+//     echo '<ul class="universalist-list">';
+//     foreach ($items as $item) {
+//         echo '<li>' . esc_html($item) . '</li>';
+//     }
+//     echo '</ul>';
+// }
 
