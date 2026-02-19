@@ -1,12 +1,12 @@
-.wp-block-distantjet-universalist-list {
+/* .wp-block-distantjet-universalist-list {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
     background: #f9f9f9;
-}
+} */
 
 /* Label the columns in the editor */
-.universalist-en-wrapper::before {
+/* .universalist-en-wrapper::before {
     content: "English Content";
     display: block;
     font-weight: bold;
@@ -20,5 +20,5 @@
     font-weight: bold;
     color: #d63638;
     margin-bottom: 10px;
-}
+} */
 
