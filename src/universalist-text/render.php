@@ -15,9 +15,7 @@ $distantjet_universalist_content = ( $distantjet_universalist_lang === 'es' && !
 
 // Generate wrapper attributes using get_block_wrapper_attributes()
 // This is the industry standard for handling alignment, custom classes, and IDs automatically.
-$distantjet_universalist_wrapper_attributes = get_block_wrapper_attributes( [
-	'class' => 'bilingual-text',
-] );
+$distantjet_universalist_wrapper_attributes = get_block_wrapper_attributes();
 
 printf(
 	'<div %s>%s</div>',

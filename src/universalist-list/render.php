@@ -25,20 +25,37 @@ $items = $lang === 'es'
     ? ($attributes['items_es'] ?? [])
     : ($attributes['items_en'] ?? []);
 
+$distantjet_universalist_wrapper_attributes = get_block_wrapper_attributes();
+
+$distantjet_universalist_wrapper_attributes = get_block_wrapper_attributes([ 
+
+    'class' => 'universalist-list-'.$lang
+
+]); 
 
 if (!empty($items)) {
-    echo '<ul class="universalist-list-'.$lang.'">';
-    foreach ($items as $item) {
-        echo '<li>' . esc_html($item) . '</li>';
-    }
-    echo '</ul>';
-}
 
+    $distantjet_universalist_content = '';
+    
+    foreach ($items as $item) {
+        $distantjet_universalist_content .= '<li>' . esc_html($item) . '</li>';
+    }
+
+    
+
+    printf(
+        '<ul %s>%s</ul>',
+        wp_kses_post($distantjet_universalist_wrapper_attributes),
+        wp_kses_post( $distantjet_universalist_content )
+    );
+
+}
 // if (!empty($items)) {
-//     echo '<ul class="universalist-list">';
+//     echo '<ul class="universalist-list-'.$lang.'">';
 //     foreach ($items as $item) {
 //         echo '<li>' . esc_html($item) . '</li>';
 //     }
 //     echo '</ul>';
 // }
+
 

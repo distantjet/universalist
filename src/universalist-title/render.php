@@ -13,9 +13,7 @@ $distantjet_universalist_tag      = $attributes['title_style'] ?? 'h2';
 $distantjet_universalist_display_title = ($distantjet_universalist_lang === 'es' && !empty($distantjet_universalist_title_es)) ? $distantjet_universalist_title_es : $distantjet_universalist_title_en;
 
 // Industry standard: Use get_block_wrapper_attributes()
-$distantjet_universalist_wrapper_attributes = get_block_wrapper_attributes([
-    'class' => 'bilingual-title'
-]);
+$distantjet_universalist_wrapper_attributes = get_block_wrapper_attributes();
 
 printf(
     '<%1$s %2$s>%3$s</%1$s>',
