@@ -3,10 +3,6 @@ import { useBlockProps, RichText, InspectorControls } from '@wordpress/block-edi
 import { PanelBody, TextareaControl } from '@wordpress/components';
 import { BlockEditProps } from '@wordpress/blocks';
 
-/**
- * Define the structure of the block's attributes.
- * This should match your block.json exactly.
- */
 export interface Attributes {
 	text_en: string;
 	text_es: string;
@@ -15,7 +11,6 @@ export interface Attributes {
 const Edit = ( { attributes, setAttributes }: BlockEditProps<Attributes> ) => {
 	const { text_en, text_es } = attributes;
 
-	// Update functions to handle strictly typed values
 	const onChangeEn = ( value: string ) => setAttributes( { text_en: value } );
 	const onChangeEs = ( value: string ) => setAttributes( { text_es: value } );
 

@@ -19,26 +19,18 @@ const UniversalistPageTitlePanel: React.FC = () => {
         (select) => select(editorStore).getCurrentPostType() as string,
         []
     );
-    // const postType = useSelect(
-    //     (select) => select('core/editor').getCurrentPostType() as string,
-    //     []
-    // );
 
     const [meta, setMeta] = useEntityProp('postType', postType, 'meta') as [
         PostMeta | undefined,
         (value: Partial<PostMeta>) => void,
-        any // This is the 3rd element causing the error
+        any
     ];
-    // const [meta, setMeta] = useEntityProp<PostMeta>('postType', postType, 'meta');
 
     if (!meta) return null;
 
     const update = (key: keyof PostMeta, value: string): void => {
         setMeta({ [key]: value });
     };
-    // const update = (key: keyof PostMeta, value: string): void => {
-    //     setMeta({ ...meta, [key]: value });
-    // };
 
     return (
         <PluginDocumentSettingPanel

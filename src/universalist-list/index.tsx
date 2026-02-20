@@ -1,5 +1,5 @@
 import { registerBlockType, BlockConfiguration } from '@wordpress/blocks';
-import { InnerBlocks } from '@wordpress/block-editor'; // Add this import
+import { InnerBlocks } from '@wordpress/block-editor';
 import Edit from './edit';
 import metadata from './block.json';
 import DistantJet_UniversalistIcon from "../components/icon";

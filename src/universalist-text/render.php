@@ -1,8 +1,5 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) exit;
-/**
- * Render callback for the Universalist Text block.
- */
 
 // Use the existing logic for language detection
 $distantjet_universalist_lang = function_exists( 'distantjet_universalist_detect_lang' ) ? distantjet_universalist_detect_lang() : 'en';

@@ -2,7 +2,7 @@ import { __ } from '@wordpress/i18n';
 import { useBlockProps, InnerBlocks } from '@wordpress/block-editor';
 import { useSelect } from '@wordpress/data';
 import { store as blockEditorStore } from '@wordpress/block-editor';
-import { TemplateArray, BlockInstance } from '@wordpress/blocks'; // Added BlockInstance
+import { TemplateArray, BlockInstance } from '@wordpress/blocks';
 import { ReactElement, useEffect } from 'react';
 
 // Define a more specific type for the list item blocks to avoid 'any' errors
@@ -47,7 +47,6 @@ export default function Edit({ attributes, setAttributes, clientId }): ReactElem
                 if (block.name === 'core/list') {
                     const className = block.attributes.className || '';
                     
-                    // Typing 'li' as ListItemBlock solves the implicit 'any' error
                     const listItems = block.innerBlocks.map(
                         (li: ListItemBlock) => li.attributes.content
                     );
