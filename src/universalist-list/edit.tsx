@@ -2,8 +2,16 @@ import { __ } from '@wordpress/i18n';
 import { useBlockProps, InnerBlocks } from '@wordpress/block-editor';
 import { useSelect } from '@wordpress/data';
 import { store as blockEditorStore } from '@wordpress/block-editor';
-import { TemplateArray } from '@wordpress/blocks';
+import { TemplateArray, BlockInstance } from '@wordpress/blocks'; // Added BlockInstance
 import { ReactElement, useEffect } from 'react';
+
+// Define a more specific type for the list item blocks to avoid 'any' errors
+interface ListItemBlock extends BlockInstance {
+    attributes: {
+        content: string;
+        [key: string]: any;
+    };
+}
 
 export default function Edit({ attributes, setAttributes, clientId }): ReactElement {
     const blockProps = useBlockProps({
@@ -21,7 +29,7 @@ export default function Edit({ attributes, setAttributes, clientId }): ReactElem
         ]]
     ];
 
-    // 🔍 Get this block’s inner blocks using its OWN clientId
+    // 🔍 Get this block’s inner blocks
     const innerBlocks = useSelect(
         (select) => select(blockEditorStore).getBlocks(clientId),
         [clientId]
@@ -38,8 +46,10 @@ export default function Edit({ attributes, setAttributes, clientId }): ReactElem
             group.innerBlocks.forEach((block) => {
                 if (block.name === 'core/list') {
                     const className = block.attributes.className || '';
+                    
+                    // Typing 'li' as ListItemBlock solves the implicit 'any' error
                     const listItems = block.innerBlocks.map(
-                        (li) => li.attributes.content
+                        (li: ListItemBlock) => li.attributes.content
                     );
 
                     if (className.includes('universalist-list-en')) {
@@ -53,9 +63,16 @@ export default function Edit({ attributes, setAttributes, clientId }): ReactElem
             });
         });
 
-        setAttributes({ items_en, items_es });
+        // Optimization: Only update if the data has actually changed
+        const hasChanged = 
+            JSON.stringify(items_en) !== JSON.stringify(attributes.items_en) ||
+            JSON.stringify(items_es) !== JSON.stringify(attributes.items_es);
 
-    }, [innerBlocks]);
+        if (hasChanged) {
+            setAttributes({ items_en, items_es });
+        }
+
+    }, [innerBlocks, attributes.items_en, attributes.items_es, setAttributes]);
 
     return (
         <div {...blockProps}>
