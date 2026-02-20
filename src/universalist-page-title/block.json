@@ -6,5 +6,6 @@
   "description": "Bilingual page title",
   "category": "widgets",
   "icon": "dashicons-admin-site",
-  "editorScript": "file:./index.tsx"
+  "editorScript": "file:./index.tsx",
+  "attributes": {}
 }
