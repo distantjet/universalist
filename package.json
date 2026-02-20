@@ -1,45 +1,38 @@
 {
-	"name": "com-distantjet-universalist",
-	"version": "0.1.0",
-	"description": "Create content for multiple languages",
-	"author": "Matias Escudero",
-	"license": "GPL-2.0-or-later",
-	"homepage": "distantjet.com/universalist",
-	"main": "build/index.js",
-	"scripts": {
-		"build": "npm run tw:build && wp-scripts build --experimental-modules",
-		"format": "wp-scripts format",
-		"lint:css": "wp-scripts lint-style",
-		"lint:js": "wp-scripts lint-js",
-		"packages-update": "wp-scripts packages-update",
-		"plugin-zip": "wp-scripts plugin-zip",
-		"tw:build": "npx tailwindcss -i ./src/style.css -o ./build/style.css --minify",
-		"tw:watch": "npx tailwindcss -i ./src/style.css -o ./build/style.css --watch",
-		"sync": "browser-sync start --proxy \"http://localhost:8888/wpdev\" --files \"build/*.css, build/*.js, **/*.php\"",
-		"start": "concurrently \"npm:tw:watch\" \"wp-scripts start --experimental-modules\" \"npm:sync\""
-	},
-	"dependencies": {
-		"@wordpress/interactivity": "latest"
-	},
-	"files": [
-		"[^.]*"
-	],
-	"devDependencies": {
-		"@tailwindcss/cli": "^4.1.18",
-		"@types/wordpress__block-editor": "^15.0.0",
-		"@types/wordpress__blocks": "^12.5.18",
-		"@types/wordpress__components": "^23.0.12",
-		"@types/wordpress__core-data": "^2.4.5",
-		"@types/wordpress__data": "^6.0.2",
-		"@types/wordpress__edit-post": "^8.4.2",
-		"@types/wordpress__i18n": "^3.4.0",
-		"@types/wordpress__plugins": "^3.0.3",
-		"@wordpress/scripts": "^31.3.0",
-		"autoprefixer": "^10.4.23",
-		"browser-sync": "^3.0.4",
-		"concurrently": "^9.2.1",
-		"postcss": "^8.5.6",
-		"tailwindcss": "^4.1.18",
-		"tailwindcss-cli": "^0.1.2"
-	}
+    "name": "com-distantjet-universalist",
+    "version": "0.1.0",
+    "description": "Create content for multiple languages",
+    "author": "Matias Escudero",
+    "license": "GPL-2.0-or-later",
+    "homepage": "distantjet.com/universalist",
+    "main": "build/index.js",
+    "scripts": {
+        "build": "wp-scripts build --experimental-modules",
+        "format": "wp-scripts format",
+        "lint:css": "wp-scripts lint-style",
+        "lint:js": "wp-scripts lint-js",
+        "packages-update": "wp-scripts packages-update",
+        "plugin-zip": "wp-scripts plugin-zip",
+        "sync": "browser-sync start --proxy \"http://localhost:8888/wpdev\" --files \"build/*.css, build/*.js, **/*.php\"",
+        "start": "concurrently \"wp-scripts start --experimental-modules\" \"npm:sync\""
+    },
+    "dependencies": {
+        "@wordpress/interactivity": "latest"
+    },
+    "files": [
+        "[^.]*"
+    ],
+    "devDependencies": {
+        "@types/wordpress__block-editor": "^15.0.0",
+        "@types/wordpress__blocks": "^12.5.18",
+        "@types/wordpress__components": "^23.0.12",
+        "@types/wordpress__core-data": "^2.4.5",
+        "@types/wordpress__data": "^6.0.2",
+        "@types/wordpress__edit-post": "^8.4.2",
+        "@types/wordpress__i18n": "^3.4.0",
+        "@types/wordpress__plugins": "^3.0.3",
+        "@wordpress/scripts": "^31.3.0",
+        "browser-sync": "^3.0.4",
+        "concurrently": "^9.2.1"
+    }
 }
