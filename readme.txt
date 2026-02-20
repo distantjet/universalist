@@ -2,7 +2,7 @@
 Contributors:      matiasescudero
 Tags:              translate, english, spanish, espanol, block
 Tested up to:      6.9
-Stable tag:        0.1.2
+Stable tag:        1.0.0
 Requires           PHP: 7.4.33
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -42,6 +42,9 @@ The cookie persists for 30 days (`max-age=2592000`), so the user’s language ch
 
 = 0.1.2 =
 * Title translation bug fixed
+
+= 1.0.0 =
+* Fixed style conflict bugs
 
 == Source Code ==
 

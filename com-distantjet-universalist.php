@@ -3,7 +3,7 @@
  * Plugin Name:       Universalist
  * Plugin URI:        https://distantjet.com/universalist
  * Description:       Create content for multiple languages
- * Version:           0.1.2
+ * Version:           1.0.0
  * Requires at least: 6.7
  * Requires PHP:      7.4
  * Author:            Matias Escudero
@@ -37,14 +37,14 @@ add_action( 'init', 'distantjet_com_distantjet_universalist_block_init' );
 
 
 function distantjet_universalist_determine_locale($locale) {
-    // 1. Check the Cookie. 
+    // Check the Cookie. 
     // This is safe because cookies are sent by the browser, not the cache.
     if (isset($_COOKIE['dj_universalist_lang_cookie'])) {
         $lang = sanitize_text_field(wp_unslash($_COOKIE['dj_universalist_lang_cookie']));
         return ($lang === 'es') ? 'es_AR' : 'en_US';
     }
 
-    // 2. Fallback to Browser Language
+    // Fallback to Browser Language
     if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
         $accept_lang = sanitize_text_field(wp_unslash($_SERVER['HTTP_ACCEPT_LANGUAGE']));
         $browser_lang = substr($accept_lang, 0, 2);
@@ -59,14 +59,14 @@ add_filter('locale', 'distantjet_universalist_determine_locale');
 // This will be used to also translate the website using i18n
 // Language detection used by universalist
 function distantjet_universalist_detect_lang() {
-    // 1. Check Cookie
+    // Check Cookie
     if ( isset( $_COOKIE['dj_universalist_lang_cookie'] ) ) {
 
         $cookie_lang = sanitize_text_field( wp_unslash( $_COOKIE['dj_universalist_lang_cookie'] ) );
         return 'es' === $cookie_lang ? 'es' : 'en';
     }
 
-    // 2. Check Browser Language
+    // Check Browser Language
     if ( isset( $_SERVER['HTTP_ACCEPT_LANGUAGE'] ) ) {
 
         $accept_language = sanitize_text_field( wp_unslash( $_SERVER['HTTP_ACCEPT_LANGUAGE'] ) );
@@ -114,20 +114,19 @@ function distantjet_universalist_get_translated_title( $post_id ) {
     return ''; // Return empty so the filter knows to use the default
 }
 
-// 1. Translate the on-page title
+// Translate the on-page title
 add_filter( 'the_title', function ( $title, $post_id ) {
     // Keep the admin check to avoid breaking the backend list of posts
     if ( is_admin() ) {
         return $title;
     }
 
-    // Remove ! is_singular() to allow translations on the front page/archives
     $translated = distantjet_universalist_get_translated_title( $post_id );
     
     return $translated ? $translated : $title;
 }, 10, 2 );
 
-// 2. Translate the <title> tag (SEO/Browser Tab)
+// Translate the <title> tag (SEO/Browser Tab)
 add_filter( 'pre_get_document_title', function ( $title ) {
     if ( ! is_singular() ) {
         return $title;

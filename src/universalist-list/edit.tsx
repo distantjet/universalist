@@ -62,7 +62,7 @@ export default function Edit({ attributes, setAttributes, clientId }): ReactElem
             });
         });
 
-        // Optimization: Only update if the data has actually changed
+        // Only update if the data has actually changed
         const hasChanged = 
             JSON.stringify(items_en) !== JSON.stringify(attributes.items_en) ||
             JSON.stringify(items_es) !== JSON.stringify(attributes.items_es);
