@@ -4,6 +4,8 @@ import { useEntityProp } from '@wordpress/core-data';
 import { useSelect } from '@wordpress/data';
 import { registerPlugin } from '@wordpress/plugins';
 
+import { store as editorStore } from '@wordpress/editor';
+
 interface PostMeta {
     dj_universalist_page_title_en?: string;
     dj_universalist_page_title_es?: string;
@@ -11,18 +13,32 @@ interface PostMeta {
 }
 
 const UniversalistPageTitlePanel: React.FC = () => {
+    
+    
     const postType = useSelect(
-        (select) => select('core/editor').getCurrentPostType() as string,
+        (select) => select(editorStore).getCurrentPostType() as string,
         []
     );
+    // const postType = useSelect(
+    //     (select) => select('core/editor').getCurrentPostType() as string,
+    //     []
+    // );
 
-    const [meta, setMeta] = useEntityProp<PostMeta>('postType', postType, 'meta');
+    const [meta, setMeta] = useEntityProp('postType', postType, 'meta') as [
+        PostMeta | undefined,
+        (value: Partial<PostMeta>) => void,
+        any // This is the 3rd element causing the error
+    ];
+    // const [meta, setMeta] = useEntityProp<PostMeta>('postType', postType, 'meta');
 
     if (!meta) return null;
 
     const update = (key: keyof PostMeta, value: string): void => {
-        setMeta({ ...meta, [key]: value });
+        setMeta({ [key]: value });
     };
+    // const update = (key: keyof PostMeta, value: string): void => {
+    //     setMeta({ ...meta, [key]: value });
+    // };
 
     return (
         <PluginDocumentSettingPanel
