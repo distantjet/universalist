@@ -14,18 +14,16 @@ interface ListItemBlock extends BlockInstance {
 }
 
 export default function Edit({ attributes, setAttributes, clientId }): ReactElement {
-    const blockProps = useBlockProps({
-        className: 'grid grid-cols-2 gap-4 border p-4'
-    });
+    const blockProps = useBlockProps();
 
     const TEMPLATE: TemplateArray = [
-        ['core/group', { className: 'universalist-en-wrapper' }, [
-            ['core/paragraph', { content: 'English List below:', textColor: 'accent' }],
-            ['core/list', { className: 'universalist-list-en' }]
+        ['core/group', { className: 'universalist-primary-wrapper' }, [
+            ['core/paragraph', { content: 'Primary language list below:', textColor: 'accent' }],
+            ['core/list', { className: 'universalist-list-primary' }]
         ]],
-        ['core/group', { className: 'universalist-es-wrapper' }, [
-            ['core/paragraph', { content: 'Lista en Español:', textColor: 'accent' }],
-            ['core/list', { className: 'universalist-list-es' }]
+        ['core/group', { className: 'universalist-secondary-wrapper' }, [
+            ['core/paragraph', { content: 'Secondary language list Below:', textColor: 'accent' }],
+            ['core/list', { className: 'universalist-list-secondary' }]
         ]]
     ];
 
@@ -39,8 +37,8 @@ export default function Edit({ attributes, setAttributes, clientId }): ReactElem
     useEffect(() => {
         if (!innerBlocks) return;
 
-        const items_en: string[] = [];
-        const items_es: string[] = [];
+        const items_primary: string[] = [];
+        const items_secondary: string[] = [];
 
         innerBlocks.forEach((group) => {
             group.innerBlocks.forEach((block) => {
@@ -51,12 +49,12 @@ export default function Edit({ attributes, setAttributes, clientId }): ReactElem
                         (li: ListItemBlock) => li.attributes.content
                     );
 
-                    if (className.includes('universalist-list-en')) {
-                        items_en.push(...listItems);
+                    if (className.includes('universalist-list-primary')) {
+                        items_primary.push(...listItems);
                     }
 
-                    if (className.includes('universalist-list-es')) {
-                        items_es.push(...listItems);
+                    if (className.includes('universalist-list-secondary')) {
+                        items_secondary.push(...listItems);
                     }
                 }
             });
@@ -64,14 +62,14 @@ export default function Edit({ attributes, setAttributes, clientId }): ReactElem
 
         // Only update if the data has actually changed
         const hasChanged = 
-            JSON.stringify(items_en) !== JSON.stringify(attributes.items_en) ||
-            JSON.stringify(items_es) !== JSON.stringify(attributes.items_es);
+            JSON.stringify(items_primary) !== JSON.stringify(attributes.items_primary) ||
+            JSON.stringify(items_secondary) !== JSON.stringify(attributes.items_secondary);
 
         if (hasChanged) {
-            setAttributes({ items_en, items_es });
+            setAttributes({ items_primary, items_secondary });
         }
 
-    }, [innerBlocks, attributes.items_en, attributes.items_es, setAttributes]);
+    }, [innerBlocks, attributes.items_primary, attributes.items_secondary, setAttributes]);
 
     return (
         <div {...blockProps}>

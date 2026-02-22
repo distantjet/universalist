@@ -26,6 +26,9 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @see https://developer.wordpress.org/reference/functions/register_block_type/
  */
 
+update_option('distantjet_univ_option_lang_primary', 'en_US');
+update_option('distantjet_univ_option_lang_secondary', 'es_AR');
+
 function distantjet_com_distantjet_universalist_block_init() {
 	register_block_type_from_metadata( __DIR__ . '/build/universalist-list' );
 	register_block_type_from_metadata( __DIR__ . '/build/universalist-text' );
@@ -39,17 +42,24 @@ add_action( 'init', 'distantjet_com_distantjet_universalist_block_init' );
 function distantjet_universalist_determine_locale($locale) {
     // Check the Cookie. 
     // This is safe because cookies are sent by the browser, not the cache.
-    if (isset($_COOKIE['dj_universalist_lang_cookie'])) {
-        $lang = sanitize_text_field(wp_unslash($_COOKIE['dj_universalist_lang_cookie']));
-        return ($lang === 'es') ? 'es_AR' : 'en_US';
+    if (isset($_COOKIE['distantjet_univ_lang_cookie'])) {
+        return sanitize_text_field(wp_unslash($_COOKIE['distantjet_univ_lang_cookie']));
     }
+    // if (isset($_COOKIE['dj_universalist_lang_cookie'])) {
+    //     $lang = sanitize_text_field(wp_unslash($_COOKIE['dj_universalist_lang_cookie']));
+    //     return ($lang === 'es') ? 'es_AR' : 'en_US';
+    // }
 
     // Fallback to Browser Language
     if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
-        $accept_lang = sanitize_text_field(wp_unslash($_SERVER['HTTP_ACCEPT_LANGUAGE']));
-        $browser_lang = substr($accept_lang, 0, 2);
-        return ($browser_lang === 'es') ? 'es_AR' : 'en_US';
+        $browser_lang = substr(sanitize_text_field(wp_unslash($_SERVER['HTTP_ACCEPT_LANGUAGE'])), 0, 5);
+        return $browser_lang;
     }
+    // if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
+    //     $accept_lang = sanitize_text_field(wp_unslash($_SERVER['HTTP_ACCEPT_LANGUAGE']));
+    //     $browser_lang = substr($accept_lang, 0, 2);
+    //     return ($browser_lang === 'es') ? 'es_AR' : 'en_US';
+    // }
 
     return $locale;
 }
@@ -60,33 +70,42 @@ add_filter('locale', 'distantjet_universalist_determine_locale');
 // Language detection used by universalist
 function distantjet_universalist_detect_lang() {
     // Check Cookie
-    if ( isset( $_COOKIE['dj_universalist_lang_cookie'] ) ) {
+    if ( isset( $_COOKIE['distantjet_univ_lang_cookie'] ) ) {
 
-        $cookie_lang = sanitize_text_field( wp_unslash( $_COOKIE['dj_universalist_lang_cookie'] ) );
-        return 'es' === $cookie_lang ? 'es' : 'en';
+        return sanitize_text_field( wp_unslash( $_COOKIE['distantjet_univ_lang_cookie'] ) );
     }
+    // if ( isset( $_COOKIE['dj_universalist_lang_cookie'] ) ) {
+
+    //     $cookie_lang = sanitize_text_field( wp_unslash( $_COOKIE['dj_universalist_lang_cookie'] ) );
+    //     return 'es' === $cookie_lang ? 'es' : 'en';
+    // }
 
     // Check Browser Language
+    
     if ( isset( $_SERVER['HTTP_ACCEPT_LANGUAGE'] ) ) {
 
-        $accept_language = sanitize_text_field( wp_unslash( $_SERVER['HTTP_ACCEPT_LANGUAGE'] ) );
-        $dj_universalist_lang = substr( $accept_language, 0, 2 );
-        return 'es' === $dj_universalist_lang ? 'es' : 'en';
+        return  substr( sanitize_text_field( wp_unslash( $_SERVER['HTTP_ACCEPT_LANGUAGE'] ) ), 0, 5 );
     }
+    // if ( isset( $_SERVER['HTTP_ACCEPT_LANGUAGE'] ) ) {
 
-    return 'en';
+    //     $accept_language = sanitize_text_field( wp_unslash( $_SERVER['HTTP_ACCEPT_LANGUAGE'] ) );
+    //     $dj_universalist_lang = substr( $accept_language, 0, 2 );
+    //     return 'es' === $dj_universalist_lang ? 'es' : 'en';
+    // }
+
+    return 'en_US';
 }
 
 
 // Register bilingual page title meta
 add_action( 'init', function () {
-    register_post_meta( '', 'dj_universalist_page_title_en', [
+    register_post_meta( '', 'distantjet_univ_page_title_prim', [
         'show_in_rest' => true,
         'single'       => true,
         'type'         => 'string',
     ] );
 
-    register_post_meta( '', 'dj_universalist_page_title_es', [
+    register_post_meta( '', 'distantjet_univ_page_title_sec', [
         'show_in_rest' => true,
         'single'       => true,
         'type'         => 'string',
@@ -100,15 +119,18 @@ add_action( 'init', function () {
 function distantjet_universalist_get_translated_title( $post_id ) {
     $lang = distantjet_universalist_detect_lang();
     
-    $en = get_post_meta( $post_id, 'dj_universalist_page_title_en', true );
-    $es = get_post_meta( $post_id, 'dj_universalist_page_title_es', true );
+    $title_primary = get_post_meta( $post_id, 'distantjet_univ_page_title_prim', true );
+    $title_secondary = get_post_meta( $post_id, 'distantjet_univ_page_title_sec', true );
 
-    if ( 'es' === $lang && ! empty( $es ) ) {
-        return $es;
+    // Get the saved secondary language
+    $lang_secondary = get_option('distantjet_univ_option_lang_secondary');
+
+    if ( $lang_secondary === $lang && ! empty( $title_secondary ) ) {
+        return $title_secondary;
     }
     
-    if ( ! empty( $en ) ) {
-        return $en;
+    if ( ! empty( $title_primary ) ) {
+        return $title_primary;
     }
 
     return ''; // Return empty so the filter knows to use the default

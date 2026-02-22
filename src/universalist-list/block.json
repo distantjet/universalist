@@ -8,8 +8,8 @@
     "category": "widgets",
     "icon": "dashicons-editor-ul",
     "attributes": {
-        "items_en": { "type": "array", "default": [] },
-        "items_es": { "type": "array", "default": [] }
+        "items_primary": { "type": "array", "default": [] },
+        "items_secondary": { "type": "array", "default": [] }
     },
     "textdomain": "universalist-list",
     "editorScript": "file:./index.js",
