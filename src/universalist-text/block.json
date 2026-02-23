@@ -8,11 +8,11 @@
 	"category": "widgets",
 	"icon": "dashicons-media-text",
 	"attributes": {
-		"text_en": {
+		"text_primary": {
 			"type": "string",
 			"default": ""
 		},
-		"text_es": {
+		"text_secondary": {
 			"type": "string",
 			"default": ""
 		}

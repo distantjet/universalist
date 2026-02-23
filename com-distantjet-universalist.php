@@ -28,6 +28,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 update_option('distantjet_univ_option_lang_primary', 'en-US');
 update_option('distantjet_univ_option_lang_secondary', 'es-AR');
+// update_option('distantjet_univ_option_lang_secondary', 'fr_FR');
 
 function distantjet_com_distantjet_universalist_block_init() {
 	register_block_type_from_metadata( __DIR__ . '/build/universalist-list' );

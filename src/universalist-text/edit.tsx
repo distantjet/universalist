@@ -4,28 +4,28 @@ import { PanelBody, TextareaControl } from '@wordpress/components';
 import { BlockEditProps } from '@wordpress/blocks';
 
 export interface Attributes {
-	text_en: string;
-	text_es: string;
+	text_primary: string;
+	text_secondary: string;
 }
 
 const Edit = ( { attributes, setAttributes }: BlockEditProps<Attributes> ) => {
-	const { text_en, text_es } = attributes;
+	const { text_primary, text_secondary } = attributes;
 
-	const onChangeEn = ( value: string ) => setAttributes( { text_en: value } );
-	const onChangeEs = ( value: string ) => setAttributes( { text_es: value } );
+	const onChangeEn = ( value: string ) => setAttributes( { text_primary: value } );
+	const onChangeEs = ( value: string ) => setAttributes( { text_secondary: value } );
 
 	return (
 		<>
 			<InspectorControls>
 				<PanelBody title={ __( 'Bilingual Text', 'universalist-text' ) }>
 					<TextareaControl
-						label={ __( 'English Text', 'universalist-text' ) }
-						value={ text_en }
+						label={ __( 'Primary language Text', 'universalist-text' ) }
+						value={ text_primary }
 						onChange={ onChangeEn }
 					/>
 					<TextareaControl
-						label={ __( 'Spanish Text', 'universalist-text' ) }
-						value={ text_es }
+						label={ __( 'Secondary language Text', 'universalist-text' ) }
+						value={ text_secondary }
 						onChange={ onChangeEs }
 					/>
 				</PanelBody>
@@ -34,7 +34,7 @@ const Edit = ( { attributes, setAttributes }: BlockEditProps<Attributes> ) => {
 			<div { ...useBlockProps() }>
 				<RichText
 					tagName="div"
-					value={ text_en }
+					value={ text_primary }
 					onChange={ onChangeEn }
 					placeholder={ __( 'Write English text…', 'universalist-text' ) }
 				/>
