@@ -5,7 +5,7 @@ import { BlockEditProps } from '@wordpress/blocks';
 import { BlockAttributes } from './types';
 
 export default function Edit({ attributes, setAttributes }: BlockEditProps<BlockAttributes>) {
-    const { title_en, title_es, title_style } = attributes;
+    const { heading_primary, heading_secondary, heading_style } = attributes;
 
     // Type-safe options for the style selector
     const styleOptions = [
@@ -20,23 +20,23 @@ export default function Edit({ attributes, setAttributes }: BlockEditProps<Block
     return (
         <>
             <InspectorControls>
-                <PanelBody title={__('Language Settings', 'universalist-title')}>
+                <PanelBody title={__('Language Settings', 'universalist-heading')}>
                     <TextControl
-                        label={__('English Title', 'universalist-title')}
-                        value={title_en}
-                        onChange={(val: string) => setAttributes({ title_en: val })}
+                        label={__('Primary language heading', 'universalist-heading')}
+                        value={heading_primary}
+                        onChange={(val: string) => setAttributes({ heading_primary: val })}
                     />
                     <TextControl
-                        label={__('Spanish Title', 'universalist-title')}
-                        value={title_es}
-                        onChange={(val: string) => setAttributes({ title_es: val })}
+                        label={__('Secondary language heading', 'universalist-heading')}
+                        value={heading_secondary}
+                        onChange={(val: string) => setAttributes({ heading_secondary: val })}
                     />
                     <SelectControl
-                        label={__('Title Style', 'universalist-title')}
-                        value={title_style}
+                        label={__('Heading Style', 'universalist-heading')}
+                        value={heading_style}
                         options={styleOptions}
                         onChange={(val: string) =>
-                            setAttributes({ title_style: val as BlockAttributes['title_style'] })
+                            setAttributes({ heading_style: val as BlockAttributes['heading_style'] })
                         }
                     />
                 </PanelBody>
@@ -44,13 +44,13 @@ export default function Edit({ attributes, setAttributes }: BlockEditProps<Block
 
             <div {...useBlockProps()}>
                 <RichText
-                    tagName={title_style}
-                    value={title_en}
-                    onChange={(val: string) => setAttributes({ title_en: val })}
-                    placeholder={__('Write English text…', 'universalist-title')}
+                    tagName={heading_style}
+                    value={heading_primary}
+                    onChange={(val: string) => setAttributes({ heading_primary: val })}
+                    placeholder={__('Primary language heading', 'universalist-heading')}
                 />
                 <small style={{ opacity: 0.5, display: 'block' }}>
-                    {__('Spanish Translation:', 'universalist-title')} {title_es || '...'}
+                    {__('Secondary language heading:', 'universalist-heading')} {heading_secondary || '...'}
                 </small>
             </div>
         </>

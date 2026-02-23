@@ -33,7 +33,7 @@ update_option('distantjet_univ_option_lang_secondary', 'es-AR');
 function distantjet_com_distantjet_universalist_block_init() {
 	register_block_type_from_metadata( __DIR__ . '/build/universalist-list' );
 	register_block_type_from_metadata( __DIR__ . '/build/universalist-text' );
-	register_block_type_from_metadata( __DIR__ . '/build/universalist-title' );
+	register_block_type_from_metadata( __DIR__ . '/build/universalist-heading' );
 	register_block_type_from_metadata( __DIR__ . '/build/universalist-page-title' );
 }
 

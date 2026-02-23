@@ -1,18 +1,18 @@
 {
     "$schema": "https://schemas.wp.org/trunk/block.json",
     "apiVersion": 3,
-    "name": "distantjet/universalist-title",
+    "name": "distantjet/universalist-heading",
     "version": "1.0.0",
     "title": "Universalist Heading",
     "description": "Bilingual heading",
     "category": "widgets",
     "icon": "dashicons-heading",
     "attributes": {
-        "title_en": { "type": "string", "default": "" },
-        "title_es": { "type": "string", "default": "" },
-        "title_style": { "type": "string", "default": "h2" }
+        "heading_primary": { "type": "string", "default": "" },
+        "heading_secondary": { "type": "string", "default": "" },
+        "heading_style": { "type": "string", "default": "h2" }
     },
-    "textdomain": "universalist-title",
+    "textdomain": "universalist-heading",
     "editorScript": "file:./index.js",
     "render": "file:./render.php"
 }
