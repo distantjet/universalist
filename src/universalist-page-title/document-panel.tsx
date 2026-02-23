@@ -7,8 +7,8 @@ import { registerPlugin } from '@wordpress/plugins';
 import { store as editorStore } from '@wordpress/editor';
 
 interface PostMeta {
-    dj_universalist_page_title_en?: string;
-    dj_universalist_page_title_es?: string;
+    distantjet_universalist_page_title_primary?: string;
+    distantjet_universalist_page_title_secondary?: string;
     [key: string]: any;
 }
 
@@ -39,14 +39,14 @@ const UniversalistPageTitlePanel: React.FC = () => {
         >
             <TextareaControl
                 label="English Page Title"
-                value={meta.dj_universalist_page_title_en || ''}
-                onChange={(v: string) => update('dj_universalist_page_title_en', v)}
+                value={meta.distantjet_universalist_page_title_primary || ''}
+                onChange={(v: string) => update('distantjet_universalist_page_title_primary', v)}
             />
 
             <TextareaControl
                 label="Spanish Page Title"
-                value={meta.dj_universalist_page_title_es || ''}
-                onChange={(v: string) => update('dj_universalist_page_title_es', v)}
+                value={meta.distantjet_universalist_page_title_secondary || ''}
+                onChange={(v: string) => update('distantjet_universalist_page_title_secondary', v)}
             />
         </PluginDocumentSettingPanel>
     );

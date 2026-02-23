@@ -93,19 +93,19 @@ function distantjet_universalist_detect_lang() {
     //     return 'es' === $dj_universalist_lang ? 'es' : 'en';
     // }
 
-    return 'en_US';
+    return 'en-US';
 }
 
 
 // Register bilingual page title meta
 add_action( 'init', function () {
-    register_post_meta( '', 'distantjet_univ_page_title_prim', [
+    register_post_meta( '', 'distantjet_universalist_page_title_primary', [
         'show_in_rest' => true,
         'single'       => true,
         'type'         => 'string',
     ] );
 
-    register_post_meta( '', 'distantjet_univ_page_title_sec', [
+    register_post_meta( '', 'distantjet_universalist_page_title_secondary', [
         'show_in_rest' => true,
         'single'       => true,
         'type'         => 'string',
@@ -119,8 +119,8 @@ add_action( 'init', function () {
 function distantjet_universalist_get_translated_title( $post_id ) {
     $lang = distantjet_universalist_detect_lang();
     
-    $title_primary = get_post_meta( $post_id, 'distantjet_univ_page_title_prim', true );
-    $title_secondary = get_post_meta( $post_id, 'distantjet_univ_page_title_sec', true );
+    $title_primary = get_post_meta( $post_id, 'distantjet_universalist_page_title_primary', true );
+    $title_secondary = get_post_meta( $post_id, 'distantjet_universalist_page_title_secondary', true );
 
     // Get the saved secondary language
     $lang_secondary = get_option('distantjet_univ_option_lang_secondary');

@@ -4,14 +4,14 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 $lang = function_exists( 'distantjet_universalist_detect_lang' )
     ? distantjet_universalist_detect_lang()
-    : 'en_US';
+    : 'en-US';
+
+    echo $lang;
 
     
 
 $lang_secondary = get_option('distantjet_univ_option_lang_secondary');
 $lang_primary = get_option('distantjet_univ_option_lang_primary');
-
-// echo gettype($lang) . ' ' . gettype($lang_secondary);
 
 $items = $lang === $lang_secondary
     ? ($attributes['items_secondary'] ?? [])
@@ -22,7 +22,7 @@ $lang_selection = $lang == $lang_secondary ? 'secondary' : 'primary';
 
 $distantjet_universalist_wrapper_attributes = get_block_wrapper_attributes([ 
 
-    'class' => 'universalist-list-'.$lang_selection
+    'class' => 'distantjet-universalist-list--'.$lang_selection
 
 ]); 
 

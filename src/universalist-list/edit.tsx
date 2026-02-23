@@ -19,11 +19,11 @@ export default function Edit({ attributes, setAttributes, clientId }): ReactElem
     const TEMPLATE: TemplateArray = [
         ['core/group', { className: 'universalist-primary-wrapper' }, [
             ['core/paragraph', { content: 'Primary language list below:', textColor: 'accent' }],
-            ['core/list', { className: 'universalist-list-primary' }]
+            ['core/list', { className: 'distantjet-universalist-list--primary' }]
         ]],
         ['core/group', { className: 'universalist-secondary-wrapper' }, [
             ['core/paragraph', { content: 'Secondary language list Below:', textColor: 'accent' }],
-            ['core/list', { className: 'universalist-list-secondary' }]
+            ['core/list', { className: 'distantjet-universalist-list--secondary' }]
         ]]
     ];
 
@@ -49,11 +49,11 @@ export default function Edit({ attributes, setAttributes, clientId }): ReactElem
                         (li: ListItemBlock) => li.attributes.content
                     );
 
-                    if (className.includes('universalist-list-primary')) {
+                    if (className.includes('distantjet-universalist-list--primary')) {
                         items_primary.push(...listItems);
                     }
 
-                    if (className.includes('universalist-list-secondary')) {
+                    if (className.includes('distantjet-universalist-list--secondary')) {
                         items_secondary.push(...listItems);
                     }
                 }
