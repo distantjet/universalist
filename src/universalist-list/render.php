@@ -17,12 +17,6 @@ $items = $lang === $lang_secondary
     ? ($attributes['items_secondary'] ?? [])
     : ($attributes['items_primary'] ?? []);
 
-    var_dump($lang, $lang_secondary);
-
-
-
-// echo (trim($lang) == trim($lang_secondary)) ? 'MATCH' : 'NO MATCH';
-
 $lang_selection = $lang == $lang_secondary ? 'secondary' : 'primary';
 
 
@@ -31,8 +25,6 @@ $distantjet_universalist_wrapper_attributes = get_block_wrapper_attributes([
     'class' => 'universalist-list-'.$lang_selection
 
 ]); 
-
-// echo $distantjet_universalist_wrapper_attributes;
 
 if (!empty($items)) {
 

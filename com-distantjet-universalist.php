@@ -26,8 +26,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @see https://developer.wordpress.org/reference/functions/register_block_type/
  */
 
-update_option('distantjet_univ_option_lang_primary', 'en_US');
-update_option('distantjet_univ_option_lang_secondary', 'es_AR');
+update_option('distantjet_univ_option_lang_primary', 'en-US');
+update_option('distantjet_univ_option_lang_secondary', 'es-AR');
 
 function distantjet_com_distantjet_universalist_block_init() {
 	register_block_type_from_metadata( __DIR__ . '/build/universalist-list' );
