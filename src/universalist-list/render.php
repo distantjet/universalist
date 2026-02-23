@@ -1,41 +1,31 @@
 <?php
+/**
+ * Render template for the Universalist List block.
+ * Uses the DistantJet_Universalist class properties for logic.
+ */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-$lang = function_exists( 'distantjet_universalist_detect_lang' )
-    ? distantjet_universalist_detect_lang()
-    : 'en-US';    
+// Access our globalized class instance
+$univ = universalist();
 
-$lang_secondary = get_option('distantjet_univ_option_lang_secondary');
-$lang_primary = get_option('distantjet_univ_option_lang_primary');
+// Determine selection once using pre-loaded class properties
+$is_secondary   = ( $univ->current_lang === $univ->secondary_lang );
+$lang_selection = $is_secondary ? 'secondary' : 'primary';
 
-$items = $lang === $lang_secondary
-    ? ($attributes['items_secondary'] ?? [])
-    : ($attributes['items_primary'] ?? []);
+// Dynamically grab the correct attribute array
+$items = $attributes["items_{$lang_selection}"] ?? [];
 
-$lang_selection = $lang == $lang_secondary ? 'secondary' : 'primary';
-
-
-$distantjet_universalist_wrapper_attributes = get_block_wrapper_attributes([ 
-
-    'class' => 'distantjet-universalist-list--'.$lang_selection
-
+// Prepare the wrapper (get_block_wrapper_attributes handles escaping)
+$wrapper_attributes = get_block_wrapper_attributes([ 
+    'class' => 'distantjet-universalist-list--' . $lang_selection
 ]); 
 
-if (!empty($items)) {
-
-    $distantjet_universalist_content = '';
-    
-    foreach ($items as $item) {
-        $distantjet_universalist_content .= '<li>' . esc_html($item) . '</li>';
-    }
-
-    printf(
-        '<ul %s>%s</ul>',
-        wp_kses_post($distantjet_universalist_wrapper_attributes),
-        wp_kses_post( $distantjet_universalist_content )
-    );
-
-}
-
-
+// Render logic
+if ( ! empty( $items ) ) : ?>
+    <ul <?php echo $wrapper_attributes; ?>>
+        <?php foreach ( $items as $item ) : ?>
+            <li><?php echo esc_html( $item ); ?></li>
+        <?php endforeach; ?>
+    </ul>
+<?php endif; ?>

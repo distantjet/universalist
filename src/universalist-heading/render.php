@@ -1,45 +1,33 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) exit;
-
-$lang_secondary = get_option('distantjet_univ_option_lang_secondary');
-$lang_primary = get_option('distantjet_univ_option_lang_primary');
-
 /**
- * Dynamic rendering for the Universalist Title block.
+ * Render template for the Universalist Heading block.
  */
 
-// Use the existing logic for language detection
-if(function_exists( 'distantjet_universalist_detect_lang' )) {
+if ( ! defined( 'ABSPATH' ) ) exit;
 
-	$distantjet_universalist_heading_primary = $attributes['heading_primary'] ?? '';
-    $distantjet_universalist_heading_secondary = $attributes['heading_secondary'] ?? '';
+$univ = universalist();
 
-	if(distantjet_universalist_detect_lang() === $lang_secondary) {
+// 1. Determine the language selection ('primary' or 'secondary')
+$selection = ( $univ->current_lang === $univ->secondary_lang ) ? 'secondary' : 'primary';
 
-		// Determine content based on locale
-		if( !empty( $distantjet_universalist_heading_secondary )) {
+// 2. Grab the content based on selection, fallback to primary if secondary is empty
+$display_heading = $attributes["heading_{$selection}"] ?? '';
 
-			$distantjet_universalist_display_heading = $distantjet_universalist_heading_secondary;
-		}
-	}
-	else {
-
-		// Determine content based on locale
-		if( !empty( $distantjet_universalist_heading_primary )) {
-
-			$distantjet_universalist_display_heading = $distantjet_universalist_heading_primary;
-		}
-	}
+// Fallback logic: If secondary is chosen but empty, show primary
+if ( 'secondary' === $selection && empty( $display_heading ) ) {
+    $display_heading = $attributes['heading_primary'] ?? '';
 }
 
-$distantjet_universalist_tag      = $attributes['heading_style'] ?? 'h2';
+// 3. Setup HTML tag and wrapper attributes
+$tag                = $attributes['heading_style'] ?? 'h2';
+$wrapper_attributes = get_block_wrapper_attributes();
 
-// Industry standard: Use get_block_wrapper_attributes()
-$distantjet_universalist_wrapper_attributes = get_block_wrapper_attributes();
-
-printf(
-    '<%1$s %2$s>%3$s</%1$s>',
-    wp_kses($distantjet_universalist_tag, array('h1', 'h2', 'h3', 'h4', 'h5', 'h6')),
-    wp_kses_post($distantjet_universalist_wrapper_attributes),
-    esc_html($distantjet_universalist_display_heading)
-);
+// 4. Output
+if ( ! empty( $display_heading ) ) {
+    printf(
+        '<%1$s %2$s>%3$s</%1$s>',
+        esc_attr( $tag ),
+        $wrapper_attributes,
+        esc_html( $display_heading )
+    );
+}
