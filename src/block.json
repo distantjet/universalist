@@ -1,0 +1,15 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "distantjet/settings",
+	"version": "0.1.0",
+	"title": "Universalist Settings",
+	"description": "Set initial settings",
+	"category": "widgets",
+	"icon": "dashicons-media-text",
+	"textdomain": "universalist-settings",
+	"style": "file:./style-settings.css",
+	"script": [
+		"file:./settings.js"
+	]
+}

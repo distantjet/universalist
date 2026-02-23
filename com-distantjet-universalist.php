@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-require_once 'admin/com-distantjet-universalist-settings.php';
+require_once plugin_dir_path( __FILE__ ) . 'admin/com-distantjet-universalist-settings.php';
 
 /**
  * Main Plugin Class
@@ -159,8 +159,14 @@ class DistantJet_Universalist {
 
         $submenu_page = add_submenu_page('universalist-settings', 'Universalist Settings',  'Universalist Settings', 'manage_options', 'universalist-settings', array($this, 'settings_page'));
 
-        // add_action('load-{$menu_page}', array())
+        add_action("load-{$menu_page}", array($this, 'load_assets'));
 
+    }
+
+    public function load_assets() {
+
+        wp_enqueue_script('universalist_settings_scripts', plugin_dir_url(__FILE__).'build/settings.js', '', '', true);
+        wp_enqueue_style('universalist_settings_styles', plugin_dir_url(__FILE__).'build/style-settings.css');
     }
 
     public function settings_page() {
@@ -169,7 +175,6 @@ class DistantJet_Universalist {
 
         $univ_settings->get_page();
     }
-
 
 }
 
