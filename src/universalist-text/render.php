@@ -12,8 +12,6 @@ if(function_exists( 'distantjet_universalist_detect_lang' )) {
 
 	if(distantjet_universalist_detect_lang() === $lang_secondary) {
 
-		$distantjet_universalist_lang = $lang_secondary;
-
 		// Determine content based on locale
 		if( !empty( $distantjet_universalist_text_secondary )) {
 
@@ -21,8 +19,6 @@ if(function_exists( 'distantjet_universalist_detect_lang' )) {
 		}
 	}
 	else {
-
-		$distantjet_universalist_lang = $lang_primary;
 
 		// Determine content based on locale
 		if( !empty( $distantjet_universalist_text_primary )) {

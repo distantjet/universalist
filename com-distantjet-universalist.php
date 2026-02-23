@@ -46,21 +46,12 @@ function distantjet_universalist_determine_locale($locale) {
     if (isset($_COOKIE['distantjet_univ_lang_cookie'])) {
         return sanitize_text_field(wp_unslash($_COOKIE['distantjet_univ_lang_cookie']));
     }
-    // if (isset($_COOKIE['dj_universalist_lang_cookie'])) {
-    //     $lang = sanitize_text_field(wp_unslash($_COOKIE['dj_universalist_lang_cookie']));
-    //     return ($lang === 'es') ? 'es_AR' : 'en_US';
-    // }
 
     // Fallback to Browser Language
     if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
         $browser_lang = substr(sanitize_text_field(wp_unslash($_SERVER['HTTP_ACCEPT_LANGUAGE'])), 0, 5);
         return $browser_lang;
     }
-    // if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
-    //     $accept_lang = sanitize_text_field(wp_unslash($_SERVER['HTTP_ACCEPT_LANGUAGE']));
-    //     $browser_lang = substr($accept_lang, 0, 2);
-    //     return ($browser_lang === 'es') ? 'es_AR' : 'en_US';
-    // }
 
     return $locale;
 }
@@ -75,24 +66,11 @@ function distantjet_universalist_detect_lang() {
 
         return sanitize_text_field( wp_unslash( $_COOKIE['distantjet_univ_lang_cookie'] ) );
     }
-    // if ( isset( $_COOKIE['dj_universalist_lang_cookie'] ) ) {
-
-    //     $cookie_lang = sanitize_text_field( wp_unslash( $_COOKIE['dj_universalist_lang_cookie'] ) );
-    //     return 'es' === $cookie_lang ? 'es' : 'en';
-    // }
-
-    // Check Browser Language
     
     if ( isset( $_SERVER['HTTP_ACCEPT_LANGUAGE'] ) ) {
 
         return  substr( sanitize_text_field( wp_unslash( $_SERVER['HTTP_ACCEPT_LANGUAGE'] ) ), 0, 5 );
     }
-    // if ( isset( $_SERVER['HTTP_ACCEPT_LANGUAGE'] ) ) {
-
-    //     $accept_language = sanitize_text_field( wp_unslash( $_SERVER['HTTP_ACCEPT_LANGUAGE'] ) );
-    //     $dj_universalist_lang = substr( $accept_language, 0, 2 );
-    //     return 'es' === $dj_universalist_lang ? 'es' : 'en';
-    // }
 
     return 'en-US';
 }
