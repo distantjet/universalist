@@ -13,6 +13,8 @@
         "lint:js": "wp-scripts lint-js",
         "packages-update": "wp-scripts packages-update",
         "plugin-zip": "wp-scripts plugin-zip",
+        "tw:build": "npx tailwindcss -i ./src/style.css -o ./build/style.css --minify",
+		"tw:watch": "npx tailwindcss -i ./src/style.css -o ./build/style.css --watch",
         "sync": "browser-sync start --proxy \"http://localhost:8888/wpdev\" --files \"build/*.css, build/*.js, **/*.php\"",
         "start": "concurrently \"wp-scripts start --experimental-modules\" \"npm:sync\""
     },
@@ -33,6 +35,9 @@
         "@types/wordpress__plugins": "^3.0.3",
         "@wordpress/scripts": "^31.3.0",
         "browser-sync": "^3.0.4",
-        "concurrently": "^9.2.1"
+        "concurrently": "^9.2.1",
+        "postcss": "^8.5.6",
+		"tailwindcss": "^4.1.18",
+		"tailwindcss-cli": "^0.1.2"
     }
 }
