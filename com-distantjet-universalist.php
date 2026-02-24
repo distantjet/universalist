@@ -82,7 +82,7 @@ class DistantJet_Universalist {
         }
 
         if ( isset( $_SERVER['HTTP_ACCEPT_LANGUAGE'] ) ) {
-            return substr( sanitize_text_field( wp_unslash( $_SERVER['HTTP_ACCEPT_LANGUAGE'] ) ), 0, 5 );
+            return substr( sanitize_text_field( wp_unslash( $_SERVER['HTTP_ACCEPT_LANGUAGE'] ) ), 0, 2 );
         }
 
         return $this->primary_lang;
