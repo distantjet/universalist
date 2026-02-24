@@ -6,26 +6,26 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 // 1. Access the plugin instance
-$univ = universalist();
+$distantjet_universalist = universalist();
 
 // 2. Determine which attribute key to use based on pre-loaded properties
-$selection = ( $univ->current_lang === $univ->secondary_lang ) ? 'secondary' : 'primary';
+$distantjet_universalist_selection = ( $distantjet_universalist->current_lang === $distantjet_universalist->secondary_lang ) ? 'secondary' : 'primary';
 
 // 3. Select content with a fallback to primary if secondary is missing
-$display_text = $attributes["text_{$selection}"] ?? '';
+$distantjet_universalist_display_text = $attributes["text_{$distantjet_universalist_selection}"] ?? '';
 
-if ( 'secondary' === $selection && empty( $display_text ) ) {
-    $display_text = $attributes['text_primary'] ?? '';
+if ( 'secondary' === $distantjet_universalist_selection && empty( $distantjet_universalist_display_text ) ) {
+    $distantjet_universalist_display_text = $attributes['text_primary'] ?? '';
 }
 
 // 4. Generate wrapper (escaped by default in WordPress core)
-$wrapper_attributes = get_block_wrapper_attributes();
+$distantjet_universalist_wrapper_attributes = get_block_wrapper_attributes();
 
 // 5. Render output
-if ( ! empty( $display_text ) ) {
+if ( ! empty( $distantjet_universalist_display_text ) ) {
     printf(
         '<div %s>%s</div>',
-        $wrapper_attributes,
-        wp_kses_post( $display_text )
+        $distantjet_universalist_wrapper_attributes, // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+        wp_kses_post( $distantjet_universalist_display_text )
     );
 }

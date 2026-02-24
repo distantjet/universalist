@@ -22,7 +22,9 @@ class DistantJet_Universalist_Settings
 
         $data['error'] = null;
 
-        if($_SERVER['REQUEST_METHOD'] == 'POST') {
+       $request_method = filter_input( INPUT_SERVER, 'REQUEST_METHOD', FILTER_SANITIZE_SPECIAL_CHARS );
+
+        if('POST' === $request_method) {
 
             try {
 
@@ -31,38 +33,51 @@ class DistantJet_Universalist_Settings
                     throw new Exception('Sorry, you do not have permission to perform that action');
                 }
 
-                $nonce = $_POST['nonce'];
+                // 1. Unslash the nonce before verification
+                $nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
 
                 if(!wp_verify_nonce($nonce, 'distantjet_universalist_settings')) {
 
                     throw new Exception('You do not have permission to perform that action.');
                 }
 
-                if(isset($_POST['lang_selection_primary']) && trim($_POST['lang_selection_primary']) != '') {
+                // 2. Unslash before sanitizing for options
+                if ( isset( $_POST['lang_selection_primary'] ) ) {
 
-                    update_option('distantjet_univ_option_lang_primary', sanitize_text_field($_POST['lang_selection_primary']));
+                    $primary_lang = sanitize_text_field( wp_unslash( $_POST['lang_selection_primary'] ) );
+                    
+                    if ( '' !== trim( $primary_lang ) ) {
+
+                        update_option( 'distantjet_univ_option_lang_primary', $primary_lang );
+                    }
                 }
-                
-                if(isset($_POST['lang_selection_secondary']) && trim($_POST['lang_selection_secondary']) != '') {
 
-                    update_option('distantjet_univ_option_lang_secondary', sanitize_text_field($_POST['lang_selection_secondary']));
+                if (isset($_POST['lang_selection_secondary'])) {
+
+                    $secondary_lang = sanitize_text_field(wp_unslash($_POST['lang_selection_secondary']));
+
+                    if ('' !== trim($secondary_lang)) {
+
+                        update_option('distantjet_univ_option_lang_secondary', $secondary_lang);
+                    }
                 }
 
-                wp_send_json_success( array( 'message' => __( 'Settings saved', 'distantjet-universalist' ) ) );
+                wp_send_json_success( array( 'message' => __( 'Settings saved', 'com-distantjet-universalist' ) ) );
             }
             catch(Exception $ex) {
 
                 wp_send_json_error(array(
-                    'message' => __($ex->getMessage(), 'distantjet-universalist'),
+                    'message' => __('Critical error. Please try again later.', 'com-distantjet-universalist'),
                     'type'    => 'error'
                 ), 400);
 
             }
 
-            echo json_encode($data);
+            // echo json_encode($data);
         }
 
-        die;
+        // die;
+        wp_die();
     }
 
     public function get_page()
