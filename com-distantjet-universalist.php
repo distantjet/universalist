@@ -66,6 +66,11 @@ class DistantJet_Universalist {
 
         // Add menu pages and load their scripts
         add_action('admin_menu', array($this, 'settings'));
+
+        $univ_settings = universalist_settings();
+
+        add_action('wp_ajax_save_settings', array($univ_settings, 'save_settings'));
+        add_action('wp_ajax_nopriv_save_settings', array($univ_settings, 'save_settings'));
     }
 
     /**

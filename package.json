@@ -14,10 +14,12 @@
         "packages-update": "wp-scripts packages-update",
         "plugin-zip": "wp-scripts plugin-zip",
         "sync": "browser-sync start --proxy \"http://localhost:8888/wpdev\" --files \"build/*.css, build/*.js, **/*.php\"",
-        "start": "concurrently \"npm:tw:watch\" \"wp-scripts start --experimental-modules\" \"npm:sync\""
+        "start": "concurrently  \"wp-scripts start --experimental-modules\" \"npm:sync\""
     },
     "dependencies": {
-        "@wordpress/interactivity": "latest"
+        "@wordpress/interactivity": "latest",
+        "axios": "^1.8.4",
+		"qs": "^6.14.0"
     },
     "files": [
         "[^.]*"

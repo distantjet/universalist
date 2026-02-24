@@ -1,8 +1,10 @@
 import './style.css';
-import React, { useEffect, useState} from "react";
+import React, { useEffect, useRef, useState} from "react";
 import ReactDOM from "react-dom/client";
 import { languages } from "./languages";
 import { DistantjetUniversalistSettingsObj } from "./types/com.distantjet.types";
+import Axios from "axios";
+import qs from "qs";
 
 declare const distantjetUniversalistSettingsObj: DistantjetUniversalistSettingsObj;
 
@@ -12,12 +14,13 @@ document.addEventListener('DOMContentLoaded', function(){
 
 	const DistantJet_Universalist_Settings: React.FC<DistantjetUniversalistSettingsObj> = ({ajaxurl, nonce, selected_language_primary, selected_language_secondary}) => 
 	{
-        const [selectedPrimaryLanguage, setSelectedPrimaryLanguage] = useState('en');
-        const [selectedSecondaryLanguage, setSelectedSecondaryLanguage] = useState('es');
+        const ddlLanguagePrimary = useRef<HTMLSelectElement | null>(null);
+        const ddlLanguageSecondary = useRef<HTMLSelectElement | null>(null);
+
+        const [selectedPrimaryLanguage, setSelectedPrimaryLanguage] = useState(selected_language_primary);
+        const [selectedSecondaryLanguage, setSelectedSecondaryLanguage] = useState(selected_language_secondary);
 
         const [availableSecondaryLanguages, setAvailableSecondaryLanguages] = useState(languages);
-
-        console.log(selected_language_primary);
 
         function handlePrimaryLanguageChange(e: React.ChangeEvent<HTMLSelectElement>) {
 
@@ -34,6 +37,44 @@ document.addEventListener('DOMContentLoaded', function(){
             setSelectedSecondaryLanguage(e.target.value);
         }
 
+        function handleSaveChanges() {
+
+            console.log('reached');
+
+            const selectionPrimary = ddlLanguagePrimary.current?.value;
+            const selectionSecondary = ddlLanguageSecondary.current?.value;
+
+            const saveSettingsRequest = Axios.CancelToken.source();
+
+            async function saveChanges() {
+
+                if(selectionPrimary && selectionSecondary) {
+
+                    let parameters = {
+
+                        action: 'save_settings',
+                        nonce: nonce,
+                        lang_selection_primary: selectionPrimary,
+                        lang_selection_secondary: selectionSecondary
+                    }
+
+                    try {
+                        const response = await Axios.post(ajaxurl, qs.stringify(parameters));
+
+                        console.log(response);
+                    }
+                    catch(error) {
+                        
+                        console.log(error);
+                    }
+                }
+            }
+
+            saveChanges();
+
+            return () => saveSettingsRequest.cancel();
+        }
+
 		return(
 
             <>
@@ -46,7 +87,7 @@ document.addEventListener('DOMContentLoaded', function(){
                             <label htmlFor="dj_universalist_lang_pri">Primary language</label>
                         </th>
                         <td>
-                            <select value={selected_language_primary} name="dj_universalist_lang_pri" id="dj_universalist_lang_pri" onChange={handlePrimaryLanguageChange}>
+                            <select ref={ddlLanguagePrimary} value={selectedPrimaryLanguage} name="dj_universalist_lang_pri" id="dj_universalist_lang_pri" onChange={handlePrimaryLanguageChange}>
                                 <option value="">Select primary language</option>
                                 {languages.map(lang => (
                                     <option value={lang.locale} >{lang.name}</option>
@@ -60,7 +101,7 @@ document.addEventListener('DOMContentLoaded', function(){
                             <label htmlFor="dj_universalist_lang_sec">Secondary language</label>
                         </th>
                         <td>
-                            <select value={selected_language_secondary} name="dj_universalist_lang_sec" id="dj_universalist_lang_sec" onChange={handleSecondaryLanguageChange}>
+                            <select ref={ddlLanguageSecondary} value={selectedSecondaryLanguage} name="dj_universalist_lang_sec" id="dj_universalist_lang_sec" onChange={handleSecondaryLanguageChange}>
                                 <option value="">Select secondary language</option>
                                 {availableSecondaryLanguages.map(secLang => (
                                     <option value={secLang.locale}>{secLang.name}</option>
@@ -72,7 +113,7 @@ document.addEventListener('DOMContentLoaded', function(){
                 </table>
 
                 <p className="submit">
-                    <input type="submit" name="submit" id="submit" className="button button-primary" value="Save Changes" />
+                    <button className="button button-primary" onClick={handleSaveChanges}>Save Changes</button>
                 </p>
             </>			
 

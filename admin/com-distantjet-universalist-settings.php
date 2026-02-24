@@ -7,51 +7,6 @@ class DistantJet_Universalist_Settings
 
     private static $instance = null;
 
-    private $languages = [
-        ['locale' => 'en', 'name' => 'English'],
-        ['locale' => 'es', 'name' => 'Spanish'],
-        ['locale' => 'fr', 'name' => 'French'],
-        ['locale' => 'pt', 'name' => 'Portuguese'],
-        ['locale' => 'de', 'name' => 'German'],
-        ['locale' => 'it', 'name' => 'Italian'],
-        ['locale' => 'nl', 'name' => 'Dutch'],
-        ['locale' => 'zh', 'name' => 'Chinese'],
-        ['locale' => 'ja', 'name' => 'Japanese'],
-        ['locale' => 'ko', 'name' => 'Korean'],
-        ['locale' => 'ru', 'name' => 'Russian'],
-        ['locale' => 'ar', 'name' => 'Arabic'],
-        ['locale' => 'hi', 'name' => 'Hindi'],
-        ['locale' => 'bn', 'name' => 'Bengali'],
-        ['locale' => 'ur', 'name' => 'Urdu'],
-        ['locale' => 'fa', 'name' => 'Persian'],
-        ['locale' => 'el', 'name' => 'Greek'],
-        ['locale' => 'he', 'name' => 'Hebrew'],
-        ['locale' => 'tr', 'name' => 'Turkish'],
-        ['locale' => 'id', 'name' => 'Indonesian'],
-        ['locale' => 'ms', 'name' => 'Malay'],
-        ['locale' => 'sv', 'name' => 'Swedish'],
-        ['locale' => 'nb', 'name' => 'Norwegian (Bokmål)'],
-        ['locale' => 'nn', 'name' => 'Norwegian (Nynorsk)'],
-        ['locale' => 'da', 'name' => 'Danish'],
-        ['locale' => 'pl', 'name' => 'Polish'],
-        ['locale' => 'cs', 'name' => 'Czech'],
-        ['locale' => 'sk', 'name' => 'Slovak'],
-        ['locale' => 'hu', 'name' => 'Hungarian'],
-        ['locale' => 'ro', 'name' => 'Romanian'],
-        ['locale' => 'uk', 'name' => 'Ukrainian'],
-        ['locale' => 'bg', 'name' => 'Bulgarian'],
-        ['locale' => 'sr', 'name' => 'Serbian'],
-        ['locale' => 'hr', 'name' => 'Croatian'],
-        ['locale' => 'bs', 'name' => 'Bosnian'],
-        ['locale' => 'sl', 'name' => 'Slovenian'],
-        ['locale' => 'lt', 'name' => 'Lithuanian'],
-        ['locale' => 'lv', 'name' => 'Latvian'],
-        ['locale' => 'et', 'name' => 'Estonian'],
-    ];
-
-
-
-
     public static function get_instance()
     {
 
@@ -63,9 +18,52 @@ class DistantJet_Universalist_Settings
         return self::$instance;
     }
 
-    function get_page()
-    {
+    public function save_settings() {
 
+        $data['error'] = null;
+
+        if($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+            try {
+
+                if(!current_user_can('manage_options')) {
+
+                    throw new Exception('Sorry, you do not have permission to perform that action');
+                }
+
+                $nonce = $_POST['nonce'];
+
+                if(!wp_verify_nonce($nonce, 'distantjet_universalist_settings')) {
+
+                    throw new Exception('You do not have permission to perform that action.');
+                }
+
+                if(isset($_POST['lang_selection_primary']) && trim($_POST['lang_selection_primary']) != '') {
+
+                    update_option('distantjet_univ_option_lang_primary', sanitize_text_field($_POST['lang_selection_primary']));
+                }
+                
+                if(isset($_POST['lang_selection_secondary']) && trim($_POST['lang_selection_secondary']) != '') {
+
+                    update_option('distantjet_univ_option_lang_secondary', sanitize_text_field($_POST['lang_selection_secondary']));
+                }
+
+                $data['message'] = 'Saved';
+            }
+            catch(Exception $ex) {
+
+                $data['error'] = $ex->getMessage();
+
+            }
+
+            echo json_encode($data);
+        }
+
+        die;
+    }
+
+    public function get_page()
+    {
         ?>
 
             <div id="distantjetUniversalistSettingsApp"></div>
