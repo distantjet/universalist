@@ -1,8 +1,8 @@
 === Universalist ===
 Contributors:      matiasescudero
-Tags:              translate, english, spanish, espanol, block
+Tags:              translate, multi‑language, block
 Tested up to:      6.9
-Stable tag:        1.0.0
+Stable tag:        2.0.0
 Requires           PHP: 7.4.33
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -11,7 +11,7 @@ Create content for English and Spanish.
 
 == Description ==
 
-Universalist lets you write page titles, headings, text, and lists in English and Spanish—side by side—and automatically shows visitors the version that matches their browser language. Stay tuned—more languages are on the way!
+Universalist lets you pair any primary language with any secondary language and write your page titles, headings, text, and lists in both. It automatically detects a visitor’s browser language, but you can also force the switch to the secondary language whenever needed. Once your two languages are selected, you can set dedicated content for each—giving every visitor a seamless, localized experience. 
 
 == Frequently Asked Questions ==
 
@@ -45,6 +45,9 @@ The cookie persists for 30 days (`max-age=2592000`), so the user’s language ch
 
 = 1.0.0 =
 * Fixed style conflict bugs
+
+= 2.0.0 =
+* Introduced full multi‑language pairing: choose any primary and secondary language
 
 == Source Code ==
 
