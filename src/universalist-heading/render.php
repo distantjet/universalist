@@ -23,15 +23,6 @@ $distantjet_universalist_tag                = $attributes['heading_style'] ?? 'h
 $distantjet_universalist_wrapper_attributes = get_block_wrapper_attributes();
 
 // 4. Output
-// if ( ! empty( $distantjet_universalist_display_heading ) ) {
-//     printf(
-//         '<%1$s %2$s>%3$s</%1$s>',
-//         esc_attr( $distantjet_universalist_tag ),
-//        $distantjet_universalist_wrapper_attributes,
-//         esc_html( $distantjet_universalist_display_heading )
-//     );
-// }
-
 printf(
     '<%1$s %2$s>%3$s</%1$s>',
     esc_attr( $distantjet_universalist_tag ),

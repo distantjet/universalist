@@ -72,11 +72,8 @@ class DistantJet_Universalist_Settings
                 ), 400);
 
             }
-
-            // echo json_encode($data);
         }
 
-        // die;
         wp_die();
     }
 

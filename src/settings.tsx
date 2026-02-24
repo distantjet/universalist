@@ -57,24 +57,6 @@ document.addEventListener('DOMContentLoaded', function(){
     
                 messageRef.current.innerHTML = messageHtml;
             }
-
-            // if(messageRef.current) {
-
-            //     messageRef.current.classList.remove('notice-success');
-            //     messageRef.current.classList.remove('notice-error');
-
-            //     if(type == 'success') {
-
-            //         messageRef.current.classList.add('notice-success');
-            //         messageRef.current.innerText = message;
-            //     }
-            //     else {
-                    
-            //         messageRef.current.classList.add('notice-error');
-            //         messageRef.current.innerText = message;
-            //     }
-            // }
-
         }
 
         function handleSaveChanges() {
