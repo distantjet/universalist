@@ -48,11 +48,14 @@ class DistantJet_Universalist_Settings
                     update_option('distantjet_univ_option_lang_secondary', sanitize_text_field($_POST['lang_selection_secondary']));
                 }
 
-                $data['message'] = 'Saved';
+                wp_send_json_success( array( 'message' => __( 'Settings saved', 'distantjet-universalist' ) ) );
             }
             catch(Exception $ex) {
 
-                $data['error'] = $ex->getMessage();
+                wp_send_json_error(array(
+                    'message' => __($ex->getMessage(), 'distantjet-universalist'),
+                    'type'    => 'error'
+                ), 400);
 
             }
 
@@ -66,7 +69,7 @@ class DistantJet_Universalist_Settings
     {
         ?>
 
-            <div id="distantjetUniversalistSettingsApp"></div>
+            <div class="wrap" id="distantjetUniversalistSettingsApp"></div>
 
         <?php
     }

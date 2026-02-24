@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState} from "react";
 import ReactDOM from "react-dom/client";
 import { languages } from "./languages";
 import { DistantjetUniversalistSettingsObj } from "./types/com.distantjet.types";
-import Axios from "axios";
+import Axios, {isAxiosError} from "axios";
 import qs from "qs";
 
 declare const distantjetUniversalistSettingsObj: DistantjetUniversalistSettingsObj;
@@ -22,6 +22,8 @@ document.addEventListener('DOMContentLoaded', function(){
 
         const [availableSecondaryLanguages, setAvailableSecondaryLanguages] = useState(languages);
 
+        const messageRef = useRef<HTMLDivElement>(null);
+
         function handlePrimaryLanguageChange(e: React.ChangeEvent<HTMLSelectElement>) {
 
             setSelectedSecondaryLanguage('');
@@ -37,9 +39,45 @@ document.addEventListener('DOMContentLoaded', function(){
             setSelectedSecondaryLanguage(e.target.value);
         }
 
-        function handleSaveChanges() {
+        function showMessage(type, message) {
 
-            console.log('reached');
+            if(messageRef.current) {
+
+                messageRef.current.innerText = '';
+
+                const messageHtml = `
+                
+                    <div class="notice notice-${type} is-dismissible">
+                        <p><strong>${message}</strong></p>
+                        <button type="button" class="notice-dismiss" onclick="this.parentElement.remove();">
+                            <span class="screen-reader-text">Dismiss</span>
+                        </button>
+                    </div>
+                `;
+    
+                messageRef.current.innerHTML = messageHtml;
+            }
+
+            // if(messageRef.current) {
+
+            //     messageRef.current.classList.remove('notice-success');
+            //     messageRef.current.classList.remove('notice-error');
+
+            //     if(type == 'success') {
+
+            //         messageRef.current.classList.add('notice-success');
+            //         messageRef.current.innerText = message;
+            //     }
+            //     else {
+                    
+            //         messageRef.current.classList.add('notice-error');
+            //         messageRef.current.innerText = message;
+            //     }
+            // }
+
+        }
+
+        function handleSaveChanges() {
 
             const selectionPrimary = ddlLanguagePrimary.current?.value;
             const selectionSecondary = ddlLanguageSecondary.current?.value;
@@ -61,11 +99,26 @@ document.addEventListener('DOMContentLoaded', function(){
                     try {
                         const response = await Axios.post(ajaxurl, qs.stringify(parameters));
 
-                        console.log(response);
+                        showMessage('success', response.data.data.message);
+
                     }
                     catch(error) {
-                        
-                        console.log(error);
+
+                        if(isAxiosError(error)) {
+
+                            // TypeScript now knows 'error' has a 'response' property
+                            const serverMessage = error.response?.data?.data?.message || 'Server Error';
+                            showMessage('error', serverMessage);
+                        }
+                        else if(error instanceof Error) {
+
+                            // This handles regular JS errors (like syntax or null pointers)
+                            showMessage('error', error.message);
+                        }
+                        else {
+
+                            showMessage('error', 'An unexpected error occurred.');
+                        }
                     }
                 }
             }
@@ -79,6 +132,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
             <>
                 <h1>Universalist settings</h1>
+                <div ref={messageRef}></div>
                 <p className="description">Select the primary and secondary languages you want to use</p>
 
                 <table className="form-table" role="presentation">
@@ -113,8 +167,9 @@ document.addEventListener('DOMContentLoaded', function(){
                 </table>
 
                 <p className="submit">
-                    <button className="button button-primary" onClick={handleSaveChanges}>Save Changes</button>
-                </p>
+                                <button className="button button-primary" onClick={handleSaveChanges}>Save Changes</button>
+                            </p>
+
             </>			
 
 		)
