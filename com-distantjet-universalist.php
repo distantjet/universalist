@@ -50,8 +50,8 @@ class DistantJet_Universalist {
      */
     private function __construct() {
         // Load settings into properties to avoid repetitive get_option calls
-        $this->primary_lang   = get_option( 'distantjet_univ_option_lang_primary', 'en-US' );
-        $this->secondary_lang = get_option( 'distantjet_univ_option_lang_secondary', 'es-AR' );
+        $this->primary_lang   = get_option( 'distantjet_univ_option_lang_primary', 'en' );
+        $this->secondary_lang = get_option( 'distantjet_univ_option_lang_secondary', 'es' );
         
         // Detect current language once per request
         $this->current_lang = $this->detect_lang();
@@ -163,10 +163,37 @@ class DistantJet_Universalist {
 
     }
 
-    public function load_assets() {
+    public function load_assets()
+    {
 
-        wp_enqueue_script('universalist_settings_scripts', plugin_dir_url(__FILE__).'build/settings.js', '', '', true);
-        wp_enqueue_style('universalist_settings_styles', plugin_dir_url(__FILE__).'build/style-settings.css');
+        $asset_file = include(plugin_dir_path(__FILE__) . 'build/settings.asset.php');
+
+        wp_enqueue_script(
+            'universalist_settings_scripts',
+            plugin_dir_url(__FILE__) . 'build/settings.js',
+            $asset_file['dependencies'], // Automatically includes wp-element, wp-dom, etc.
+            $asset_file['version'],
+            true
+        );
+
+        wp_localize_script('universalist_settings_scripts', 'distantjetUniversalistSettingsObj', array(
+            'siteUrl' => site_url(),
+            'ajaxurl'   => admin_url('admin-ajax.php'),
+            'nonce'     => wp_create_nonce('distantjet_universalist_settings'),
+            'selected_language_primary' => $this->primary_lang,
+            'selected_language_secondary' => $this->secondary_lang,
+          
+        ));
+
+
+        // wp_enqueue_script(
+        //     'universalist_settings_scripts',
+        //     plugin_dir_url(__FILE__) . 'build/settings.js',
+        //     array('wp-element'), // <--- ADD THIS DEPENDENCY
+        //     '1.1.0',
+        //     true
+        // );
+        // wp_enqueue_style('universalist_settings_styles', plugin_dir_url(__FILE__) . 'build/style-settings.css');
     }
 
     public function settings_page() {

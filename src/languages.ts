@@ -1,0 +1,46 @@
+export interface Language {
+  locale: string;
+  name: string;
+}
+
+export const languages = [
+  { locale: 'ar', name: 'Arabic' },
+  { locale: 'bn', name: 'Bengali' },
+  { locale: 'bs', name: 'Bosnian' },
+  { locale: 'bg', name: 'Bulgarian' },
+  { locale: 'zh', name: 'Chinese' },
+  { locale: 'hr', name: 'Croatian' },
+  { locale: 'cs', name: 'Czech' },
+  { locale: 'da', name: 'Danish' },
+  { locale: 'nl', name: 'Dutch' },
+  { locale: 'en', name: 'English' },
+  { locale: 'et', name: 'Estonian' },
+  { locale: 'fa', name: 'Persian' },
+  { locale: 'fr', name: 'French' },
+  { locale: 'de', name: 'German' },
+  { locale: 'el', name: 'Greek' },
+  { locale: 'he', name: 'Hebrew' },
+  { locale: 'hi', name: 'Hindi' },
+  { locale: 'hu', name: 'Hungarian' },
+  { locale: 'id', name: 'Indonesian' },
+  { locale: 'it', name: 'Italian' },
+  { locale: 'ja', name: 'Japanese' },
+  { locale: 'ko', name: 'Korean' },
+  { locale: 'lv', name: 'Latvian' },
+  { locale: 'lt', name: 'Lithuanian' },
+  { locale: 'ms', name: 'Malay' },
+  { locale: 'nb', name: 'Norwegian (Bokmål)' },
+  { locale: 'nn', name: 'Norwegian (Nynorsk)' },
+  { locale: 'pl', name: 'Polish' },
+  { locale: 'pt', name: 'Portuguese' },
+  { locale: 'ro', name: 'Romanian' },
+  { locale: 'ru', name: 'Russian' },
+  { locale: 'sr', name: 'Serbian' },
+  { locale: 'sk', name: 'Slovak' },
+  { locale: 'sl', name: 'Slovenian' },
+  { locale: 'es', name: 'Spanish' },
+  { locale: 'sv', name: 'Swedish' },
+  { locale: 'tr', name: 'Turkish' },
+  { locale: 'uk', name: 'Ukrainian' },
+  { locale: 'ur', name: 'Urdu' }
+];
