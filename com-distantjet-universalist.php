@@ -49,6 +49,27 @@ class DistantJet_Universalist {
      * Constructor
      */
     private function __construct() {
+
+
+        register_activation_hook(__FILE__, 'distantjet_universalist_activation');
+
+        function distantjet_universalist_activation() {
+
+            add_option('distantjet_universalist_activated', plugin_basename(__FILE__));
+        }
+
+        add_action('admin_init', function() {
+
+            if(is_admin() && get_option('distantjet_universalist_activated') == plugin_basename(__FILE__)) {
+
+                delete_option('distantjet_universalist_activated');
+                wp_redirect(get_admin_url(null, 'admin.php?page=universalist-settings'));
+                exit;
+            }
+        });
+
+
+
         // Load settings into properties to avoid repetitive get_option calls
         $this->primary_lang   = get_option( 'distantjet_univ_option_lang_primary', 'en' );
         $this->secondary_lang = get_option( 'distantjet_univ_option_lang_secondary', 'es' );
