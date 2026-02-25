@@ -30,7 +30,8 @@ document.addEventListener('DOMContentLoaded', function(){
 
         const messageRef = useRef<HTMLDivElement>(null);
 
-        const languageSwitcherRef = useRef<HTMLTextAreaElement>(null);
+        const langSwitcherRef = useRef<HTMLDivElement>(null);
+        const txtLangSwitcherRef = useRef<HTMLTextAreaElement>(null);
 
         function handlePrimaryLanguageChange(e: React.ChangeEvent<HTMLSelectElement>) {
 
@@ -40,12 +41,23 @@ document.addEventListener('DOMContentLoaded', function(){
             setSelectedLanguagePrimary(e.target.value);
 
             setAvailableSecondaryLanguages(languages.filter(lang => lang.locale !== e.target.value));
+
+            hideLinks();
         }
 
         function handleSecondaryLanguageChange(e: React.ChangeEvent<HTMLSelectElement>) {
 
             setSelectedLanguageSecondary(e.target.value);
+
+            hideLinks();
+
+
         }
+
+        useEffect(() => {
+
+            generateLinks();
+        }, []);
 
         function showMessage(type, message) {
 
@@ -69,8 +81,6 @@ document.addEventListener('DOMContentLoaded', function(){
 
         function handleSaveChanges() {
 
-            console.log(selectedLanguagePrimary + ' ' + selectedLanguageSecondary);
-
             const selectionPrimary = ddlLanguagePrimary.current?.value;
             const selectionSecondary = ddlLanguageSecondary.current?.value;
 
@@ -78,7 +88,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
             async function saveChanges() {
 
-                if(selectionPrimary && selectionSecondary) {
+                
 
                     let parameters = {
 
@@ -90,6 +100,11 @@ document.addEventListener('DOMContentLoaded', function(){
 
                     try {
 
+                        if(!selectionPrimary || !selectionSecondary) {
+
+                            throw Error('Please select both the primary and secondary languages.');
+                        }
+
                         if(selectedLanguagePrimary == selectedLanguageSecondary) {
 
                             throw Error('Primary language and secondary language must be different');
@@ -98,6 +113,8 @@ document.addEventListener('DOMContentLoaded', function(){
                         const response = await Axios.post(ajaxurl, qs.stringify(parameters));
 
                         showMessage('success', response.data.data.message);
+
+                        generateLinks();
 
                     }
                     catch(error) {
@@ -118,7 +135,7 @@ document.addEventListener('DOMContentLoaded', function(){
                             showMessage('error', 'An unexpected error occurred.');
                         }
                     }
-                }
+                
             }
 
             saveChanges();
@@ -126,40 +143,50 @@ document.addEventListener('DOMContentLoaded', function(){
             return () => saveSettingsRequest.cancel();
         }
 
-        const handleGenerateSwitcherLinks = () => {
-
-            console.log(selectedLanguageSecondary);
-
-            try {
-                if(selectedLanguagePrimary == '') {
-
-                    throw Error('Select a primary language');
-                }
+        const generateLinks = () => {
                 
-                if(selectedLanguageSecondary == '') {
+            if(langSwitcherRef.current) {
 
-                    throw Error('Select a secondary language');
+                if(!langSwitcherRef.current.classList.contains('djet-univ-settings__langswitcher--hidden')) {
+
+                    langSwitcherRef.current.classList.add('djet-univ-settings__langswitcher--hidden');
                 }
-                
-                if(languageSwitcherRef.current) {
-    
-                    languageSwitcherRef.current.classList.toggle('djet-univ-settings__textarea--hidden');
-    
-                    const switcherHtml = `
-                    <div style="display: flex; margin:1rem 0;">
-                        <a href="#" onclick="document.cookie='distantjet_univ_lang_cookie=${selectedLanguagePrimary};path=/;max-age=2592000';location.reload();return false;">${targetLanguageNamePrimary}</a>
-                        <div>|</div>
-                        <a href="#" onclick="document.cookie='distantjet_univ_lang_cookie=${selectedLanguageSecondary};path=/;max-age=2592000';location.reload();return false;">${targetLanguageNameSecondary}</a>
-                    </div>
-                    `;
-    
-                    languageSwitcherRef.current.innerHTML = switcherHtml;
+
+                const switcherHtml = `
+                <div style="display: flex; margin:1rem 0;">
+                    <a href="#" onclick="document.cookie='distantjet_univ_lang_cookie=${selectedLanguagePrimary};path=/;max-age=2592000';location.reload();return false;">${targetLanguageNamePrimary}</a>
+                    <div>|</div>
+                    <a href="#" onclick="document.cookie='distantjet_univ_lang_cookie=${selectedLanguageSecondary};path=/;max-age=2592000';location.reload();return false;">${targetLanguageNameSecondary}</a>
+                </div>
+                `;
+
+                if(txtLangSwitcherRef.current) {
+
+                    txtLangSwitcherRef.current.innerHTML = switcherHtml;
+                }
+
+
+                if(langSwitcherRef.current.classList.contains('djet-univ-settings__langswitcher--hidden')) {
+                    
+                    langSwitcherRef.current.classList.remove('djet-univ-settings__langswitcher--hidden');
                 }
             }
-            catch(error) {
+        }
 
-                console.log(error.message);
+        const hideLinks = () => {
+
+            if(langSwitcherRef.current) {
+
+                if(!langSwitcherRef.current.classList.contains('djet-univ-settings__langswitcher--hidden')) {
+
+                    langSwitcherRef.current.classList.add('djet-univ-settings__langswitcher--hidden');
+                }
             }
+        }
+
+        const handleSwitcherTextSelect = (e: React.MouseEvent<HTMLTextAreaElement>) => {
+
+            e.currentTarget.select();
         }
 
 		return(
@@ -208,18 +235,29 @@ document.addEventListener('DOMContentLoaded', function(){
                     <button className="button button-primary" onClick={handleSaveChanges}>Save Changes</button>
                 </p>
 
-                <hr />
+                <div className="djet-univ-settings">
 
-                <h3>Language Switcher Links</h3>
+                    <div ref={langSwitcherRef} className="djet-univ-settings__langswitcher djet-univ-settings__langswitcher--hidden">
 
-                <p className="submit">
+                        <hr />
+                        <h3>Language Switcher Links</h3>
+
+
+                        <textarea ref={txtLangSwitcherRef} onClick={handleSwitcherTextSelect} className="djet-univ-settings__textarea"></textarea>
+
+                    </div>
+
+                </div>
+
+
+
+                {/* <p className="submit">
                     <button className="button button-primary" onClick={handleGenerateSwitcherLinks}>Generate Switcher links</button>
                 </p>
 
                 <div className="djet-univ-settings">
 
-                    <textarea ref={languageSwitcherRef} className="djet-univ-settings__textarea djet-univ-settings__textarea--hidden"></textarea>
-                </div>
+                </div> */}
 
 
             </>			
