@@ -196,7 +196,7 @@ document.addEventListener('DOMContentLoaded', function(){
                 
                 <strong>Choose the primary and secondary languages for your site. </strong>
                 <p className="description">If a visitor’s browser language matches your secondary language, the plugin will display your secondary‑language content. Otherwise, it will default to the primary language.</p>
-                <p className="description">To create ready‑to‑use language‑switch links you can add anywhere on your site, click <strong>“Generate Language Switcher Links.”</strong></p>
+                <p className="description">Click <strong>Save Changes</strong> to create direct language-switch links for the languages you've selected.</p>
 
                 <div style={{marginTop: '1rem'}}ref={messageRef}></div>
 
@@ -240,26 +240,13 @@ document.addEventListener('DOMContentLoaded', function(){
                     <div ref={langSwitcherRef} className="djet-univ-settings__langswitcher djet-univ-settings__langswitcher--hidden">
 
                         <hr />
-                        <h3>Language Switcher Links</h3>
-
+                        <h3>Language switcher links</h3>
 
                         <textarea ref={txtLangSwitcherRef} onClick={handleSwitcherTextSelect} className="djet-univ-settings__textarea"></textarea>
 
                     </div>
 
                 </div>
-
-
-
-                {/* <p className="submit">
-                    <button className="button button-primary" onClick={handleGenerateSwitcherLinks}>Generate Switcher links</button>
-                </p>
-
-                <div className="djet-univ-settings">
-
-                </div> */}
-
-
             </>			
 
 		)

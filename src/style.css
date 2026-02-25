@@ -13,7 +13,7 @@
 
     .djet-univ-settings__textarea {
 
-        width: 50%;
+        width: 100%;
         height: 10rem;
     }
 
@@ -21,8 +21,4 @@
 
         display: none;
     }
-
-    
 }
-
-

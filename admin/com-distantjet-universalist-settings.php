@@ -66,25 +66,6 @@ class DistantJet_Universalist_Settings
 
                     update_option('distantjet_univ_option_lang_secondary', $secondary_lang);
                 }
-                // if ( isset( $_POST['lang_selection_primary'] ) ) {
-
-                //     $primary_lang = sanitize_text_field( wp_unslash( $_POST['lang_selection_primary'] ) );
-                    
-                //     if ( '' !== trim( $primary_lang ) ) {
-
-                //         update_option( 'distantjet_univ_option_lang_primary', $primary_lang );
-                //     }
-                // }
-
-                // if (isset($_POST['lang_selection_secondary'])) {
-
-                //     $secondary_lang = sanitize_text_field(wp_unslash($_POST['lang_selection_secondary']));
-
-                //     if ('' !== trim($secondary_lang)) {
-
-                //         update_option('distantjet_univ_option_lang_secondary', $secondary_lang);
-                //     }
-                // }
 
                 wp_send_json_success( array( 'message' => __( 'Settings saved', 'com-distantjet-universalist' ) ) );
             }
@@ -94,7 +75,6 @@ class DistantJet_Universalist_Settings
                     'message' => $ex->getMessage(),
                     'type'    => 'error'
                 ), 400);
-
             }
         }
 
