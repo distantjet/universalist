@@ -30,7 +30,7 @@ class DistantJet_Universalist_Settings
 
                 if(!current_user_can('manage_options')) {
 
-                    throw new Exception('Sorry, you do not have permission to perform that action');
+                    throw new Exception('You do not have sufficient permissions to access this page.');
                 }
 
                 // 1. Unslash the nonce before verification
@@ -38,7 +38,7 @@ class DistantJet_Universalist_Settings
 
                 if(!wp_verify_nonce($nonce, 'distantjet_universalist_settings')) {
 
-                    throw new Exception('You do not have permission to perform that action.');
+                    throw new Exception('You do not have sufficient permissions to access this page.');
                 }
 
                 // 2. Unslash before sanitizing for options
@@ -54,7 +54,7 @@ class DistantJet_Universalist_Settings
 
                 if($primary_lang === $secondary_lang) {
 
-                    throw new Exception('Primary language and secondary language must be different.');
+                    throw new Exception('Please select two different languages for your primary and secondary settings.');
                 }
 
                 if ('' !== trim($primary_lang)) {

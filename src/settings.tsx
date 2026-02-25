@@ -50,8 +50,6 @@ document.addEventListener('DOMContentLoaded', function(){
             setSelectedLanguageSecondary(e.target.value);
 
             hideLinks();
-
-
         }
 
         useEffect(() => {
@@ -88,8 +86,6 @@ document.addEventListener('DOMContentLoaded', function(){
 
             async function saveChanges() {
 
-                
-
                     let parameters = {
 
                         action: 'save_settings',
@@ -102,12 +98,12 @@ document.addEventListener('DOMContentLoaded', function(){
 
                         if(!selectionPrimary || !selectionSecondary) {
 
-                            throw Error('Please select both the primary and secondary languages.');
+                            throw Error('Please ensure both a primary and secondary language are selected.');
                         }
 
                         if(selectedLanguagePrimary == selectedLanguageSecondary) {
 
-                            throw Error('Primary language and secondary language must be different');
+                            throw Error('Please select two different languages for your primary and secondary settings.');
                         }
 
                         const response = await Axios.post(ajaxurl, qs.stringify(parameters));

@@ -3,7 +3,7 @@
  * Plugin Name:       Universalist
  * Plugin URI:        https://distantjet.com/universalist
  * Description:       Create content for multiple languages
- * Version:           2.0.3
+ * Version:           2.1.0
  * Requires at least: 6.7
  * Requires PHP:      7.4
  * Author:            Matias Escudero
