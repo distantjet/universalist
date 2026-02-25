@@ -189,6 +189,8 @@ class DistantJet_Universalist {
             'selected_language_secondary' => $this->secondary_lang,
           
         ));
+
+        wp_enqueue_style('universalist_settings_styles', plugin_dir_url(__FILE__).'build/style-settings.css');
     }
 
     public function settings_page() {

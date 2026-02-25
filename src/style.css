@@ -1,5 +1,5 @@
 
-.distantjet-universalist-settings {
+.djet-univ-settings {
 
     .language-selection {
 
@@ -9,6 +9,17 @@
     .select-controls {
 
         margin-top: 1.5rem;
+    }
+
+    .djet-univ-settings__textarea {
+
+        width: 50%;
+        height: 10rem;
+    }
+
+    .djet-univ-settings__textarea--hidden {
+
+        display: none;
     }
 
     
