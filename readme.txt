@@ -2,7 +2,7 @@
 Contributors:      matiasescudero
 Tags:              translate, multi‑language, block
 Tested up to:      6.9
-Stable tag:        2.0.1
+Stable tag:        2.0.3
 Requires           PHP: 7.4.33
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -51,6 +51,12 @@ The cookie persists for 30 days (`max-age=2592000`), so the user’s language ch
 
 = 2.0.1 =
 * Fixed fatal error
+
+= 2.0.2 =
+* Fixed missing block
+
+= 2.0.3 =
+* Fixed missing block
 
 == Source Code ==
 
