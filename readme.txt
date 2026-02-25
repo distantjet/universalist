@@ -31,6 +31,7 @@ The cookie persists for 30 days (`max-age=2592000`), so the user’s language ch
 2. Title translation.
 3. Text translation.
 4. List translation.
+5. Language switching links automatically generated for each available locale.
 
 == Changelog ==
 
